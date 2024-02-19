@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Types d'exercices de musculation{% endblock %}
+
+{% block body %}
+<br>
+  <div class="row pt-2">
+    {% for typeExerciceMusculation in exerciceMusculation.getExercices() %}
+      <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
+        <div class="card text-white bg-primary mb-3">
+          <div class="card-header">{{ typeExerciceMusculation.getNomTypeExerciceMusculation() }}</div>
+          <hr>
+          <img class="imgliste mx-auto d-block" src="{{ asset(typeExerciceMusculation.imageTypeExerciceMusculation) }}" alt="Card image">
+
+          <div class="card-body">
+            <hr>
+            <h5 class="card-text">
+              <a href=" {{path('ficheTypeExerciceMusculation', {'id': typeExerciceMusculation.id })}} " class="badge badge-success">Voir ></a>
+            </h5>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

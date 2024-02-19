@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recettes de nutrition pour prendre du poids{% endblock %}
+
+{% block body %}
+  <br>
+  <div class="container position-relative text-center">
+    <img src="{{ asset('image/recette/recetteBanniere.jpg')}}" alt="Image accueil" class="img-fluid mx-auto">
+    <p class="texteimg">Nos meilleures recettes pour mieux manger</p>
+  </div>
+<h1 class="titre pt-2">Recettes pour grossir sainement et simplement</h1>
+<p class="pt-2 text-center">Grossir ne devrait pas être une corvée, redécouvrez le plaisir avec des plats équilibrés aux calories bien pesées. Manger sain, varié et équilibré est important lorsqu'on souhaite prendre du poids.</p>
+<p class="pt-2 text-center">Multipliez les prises plutôt que les plats, et suivez la sélection FitFlex pour grossir sainement et simplement grâce à ces recettes !</p>
+<hr>
+<div class="row pt-2">
+{% for laRecette in lesRecettes %}
+    <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
+<div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+  <div class="card-header">{{laRecette.nomRecette}}
+  </div>  
+  <hr>  
+  <img class="imgliste mx-auto d-block " src=" {{laRecette.imageRecette}} " alt="Card image">
+  <div class="card-body">
+  <hr>  
+  <h5 class="card-text">
+    <a href=" {{path('ficheRecette', {'id': laRecette.id })}} " class="badge badge-success"> Voir la recette > {{laRecette.typeRecette}}</a>
+    
+  </h5>
+  </div>
+</div>
+    </div>
+{% endfor %}
+</div>
+
+{% endblock %}

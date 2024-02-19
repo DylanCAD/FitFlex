@@ -1,0 +1,66 @@
+.navbar-brand img {
+    width: 60px;
+    border-radius: 20%;
+}
+
+.card {
+    max-width: 20rem;
+}
+
+.cardfiche {
+    max-width: 100rem;
+}
+
+.imgliste{
+    border-radius: 5%;
+    height: 200px; 
+    width: 80%; 
+    display: block;
+}
+
+.imgfiche {
+    border-radius: 10%; 
+    height: 200px; 
+    width: 80%; 
+    display: block;
+}
+
+.titre{
+    color: blue;
+    text-align: center;
+}
+
+.titreaccueil{
+    color: blue;
+}
+
+.texteimg{
+    position: absolute;
+    top: 92%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    z-index: 1;
+    background-color: black;
+}
+
+.card-text{
+    text-align: left;
+}
+
+.card-titre{
+    color: black;
+}
+
+/* Image page d'accueil */
+.image-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.image-container .img-fluid {
+    height: 200px;
+}
+
+.btn {
+    margin-top: 10px;
+}
