@@ -2,7 +2,13 @@
 
 {% block title %}Accueil - FitFlex{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+{% endblock %}
+
 {% block body %}
+<br>
 <div class="jumbotron">
   <div class="container position-relative text-center">
     <img src="{{ asset('image/FitflexBanniere.jpg')}}" alt="Image accueil" class="img-fluid mx-auto">
@@ -28,24 +34,66 @@
 <div class="row">
     <div class="col-md-4">
       <div class="image-container">
-        <img src="{{ asset('image/imgBouton1.jpg')}}" alt="Image 1" class="img-fluid">
-        <a href=" {{path('exercicemusculations')}} " class="btn btn-primary">Exercices de fitness</a>
+        <a href="{{ path('exercicemusculations') }}">
+          <div class="image-with-text">
+            <img src="{{ asset('image/imgBouton1.jpg')}}" alt="Image 1" class="img-fluid zoom-effect">
+            <div class="image-text">Voir les exercices</div>
+          </div>
+        </a>
       </div>
     </div>
 
     <div class="col-md-4">
       <div class="image-container">
-        <img src="{{ asset('image/imgBouton2.jpg')}}" alt="Image 2" class="img-fluid">
-        <a href=" {{path('equipements')}} " class="btn btn-primary">Equipements de fitness</a>
+        <a href="{{ path('equipements') }}">
+          <div class="image-with-text">
+            <img src="{{ asset('image/imgBouton2.jpg')}}" alt="Image 2" class="img-fluid zoom-effect">
+            <div class="image-text">Voir les equipements</div>
+          </div>
+        </a>
       </div>
     </div>
 
-    <div class="col-md-4">
-      <div class="image-container">
-        <img src="{{ asset('image/imgBouton3.jpg')}}" alt="Image 3" class="img-fluid">
-        <button class="btn btn-primary">Recettes de nutrition</button>
-      </div>
+<div class="col-md-4">
+    <div class="image-container">
+        <div id="recettes-image" class="image-with-text">
+            <a href="#" id="toggle-dropdown">
+                <img src="{{ asset('image/imgBouton3.jpg')}}" alt="Image 3" class="img-fluid zoom-effect">
+                <div class="image-text">Voir les recettes</div>
+            </a>
+        </div>
+        <div id="dropdown" style="display: none;">
+            <select id="choixRecettes" class="form-control">
+                <option value="{{ path('recettes') }}">Recettes pour prendre du poids</option>
+                <option value="{{ path('recettenegatives') }}">Recettes pour perdre du poids</option>
+            </select>
+            <button id="close-dropdown-btn" class="btn btn-secondary">Fermer</button>
+            <button id="redirect-btn" class="btn btn-primary">Go</button>
+        </div>
+        <div id="message" style="display: none;"></div>
     </div>
+</div>
+
+<script>
+    document.getElementById("toggle-dropdown").addEventListener("click", function(event) {
+        event.preventDefault();
+        document.getElementById("dropdown").style.display = "block";
+    });
+
+    document.getElementById("close-dropdown-btn").addEventListener("click", function() {
+        document.getElementById("dropdown").style.display = "none";
+    });
+
+    document.getElementById("redirect-btn").addEventListener("click", function() {
+        var choix = document.getElementById("choixRecettes");
+        if (!choix.value) {
+            document.getElementById('message').innerHTML = "<div class='alert alert-danger'>Veuillez sélectionner une option.</div>";
+        } else {
+            window.location.href = choix.value;
+        }
+    });
+</script>
+
 </div>
 </div>
 

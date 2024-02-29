@@ -26,12 +26,12 @@
 }
 
 .titre{
-    color: blue;
+    color: #09bac2;
     text-align: center;
 }
 
 .titreaccueil{
-    color: blue;
+    color: #09bac2;
 }
 
 .texteimg{
@@ -63,4 +63,60 @@
 
 .btn {
     margin-top: 10px;
+}
+
+.zoom-effect {
+    transition: transform 0.3s ease-in-out;
+}
+
+.zoom-effect:hover {
+    transform: scale(1.1);
+}
+
+.image-with-text {
+    position: relative;
+    overflow: hidden;
+}
+
+.image-text {
+    position: absolute;
+    bottom: 10px;
+    left: 20px;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 5px 10px;
+    font-size: 18px;
+    color: #000;
+}
+
+.image-container:hover {
+    cursor: pointer;
+}
+
+.footer {
+    background-color: #385c7c;
+    padding: 20px 0;
+}
+
+.footer h5 {
+    margin-bottom: 15px;
+}
+
+.footer ul li a {
+    color: #000;
+}
+
+.logo-footer {
+    max-width: 150px;
+    height: auto;
+    border-radius: 10%;
+}
+
+/* style du lien de la page equipements */
+.card-text .achat-lien {
+    color: black;
+    text-decoration: none;
+}
+
+.card-text .achat-lien:hover {
+    text-decoration: underline;
 }

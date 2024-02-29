@@ -3,29 +3,27 @@
 {% block title %}Exercices de musculation de fitness{% endblock %}
 
 {% block body %}
-  <br>
-  <div class="container position-relative text-center">
+<br>
+<div class="container position-relative text-center">
     <img src="{{ asset('image/exercicemusculation/ExerciceMusculationBanniere.jpg')}}" alt="Image accueil" class="img-fluid mx-auto">
     <p class="texteimg">Exercices de Musculation en Salle de Sport</p>
-  </div>
+</div>
 <h1 class="titre pt-2 text-center">EXERCICE DE MUSCULATION</h1>
 <p class="pt-2 text-center">A la recherche de nouveaux exercices ou d’explications sur l’exécution du mouvement d’un ou de plusieurs exercices de musculation ? FitFlex vous présentent ci-dessous tous les exercices de musculation que vous pouvez effectuer dans votre salle de sport. Avec ce guide, vous serez en capacité de varier vos entraînements avec une multitude d’exercices visant les différentes parties du corps, afin de développer des programmes de musculation qui vous conviennent et vous correspondent.</p>
 <p class="pt-2 text-center">Voici la liste des exercices de musculation que vous pourrez pratiquer dans votre salle de sport.</p>
 <hr>
 <div class="row pt-2">
-{% for leExerciceMusculation in lesExerciceMusculations %}
-    <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
-<div class="card text-white bg-primary mb-3">
-  <div class="card-header">{{leExerciceMusculation.nomExerciceMusculation}}
-  </div>  
-  <hr>  
-  <img class="imgliste mx-auto d-block " src=" {{leExerciceMusculation.imageExerciceMusculation}} " alt="Card image">
-  <div class="card-body">
-      <a href="{{ path('exercicemusculation_types', { 'id': leExerciceMusculation.id }) }}" class="badge badge-success">Voir les exercices ></a>
-  </div>
-</div>
-    </div>
-{% endfor %}
-
+    {% for leExerciceMusculation in lesExerciceMusculations %}
+        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 mb-4">
+            <div class="card text-white bg-primary">
+                <div class="card-header">{{leExerciceMusculation.nomExerciceMusculation}}</div>  
+                <hr>  
+                <img class="imgliste mx-auto d-block" src="{{leExerciceMusculation.imageExerciceMusculation}}" alt="Card image">
+                <div class="card-body">
+                    <a href="{{ path('exercicemusculation_types', { 'id': leExerciceMusculation.id }) }}" class="badge badge-success">Voir les exercices ></a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
 </div>
 {% endblock %}
