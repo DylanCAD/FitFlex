@@ -11,8 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Equipement
 {
     /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
+     * @ORM\Id()
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(type="integer")
      */
     private $id;

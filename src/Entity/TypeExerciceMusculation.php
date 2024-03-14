@@ -54,6 +54,13 @@ class TypeExerciceMusculation
         return $this->id;
     }
 
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
     public function getNomTypeExerciceMusculation(): ?string
     {
         return $this->nomTypeExerciceMusculation;
