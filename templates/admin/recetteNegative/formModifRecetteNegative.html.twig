@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification recette{% endblock %}
+
+{% block body %}
+    <h1 class="text-center pt-2 ">Modification d'une recette</h1>
+
+    {{ form_start(formRecetteNegative,{'attr':{'novalidate':'novalidate'}}) }}
+
+    {{ form_row(formRecetteNegative.nomRecetteNegative) }}
+
+    {{ form_row(formRecetteNegative.imageRecetteNegative) }}
+
+    <div class="row">
+        <div class="col">{{form_row(formRecetteNegative.personneRecetteNegative)}}</div>
+        <div class="col">{{form_row(formRecetteNegative.preparationdureeRecetteNegative)}}</div>
+        <div class="col">{{form_row(formRecetteNegative.cuissonRecetteNegative)}}</div>
+        <div class="col">{{form_row(formRecetteNegative.typeRecetteNegative)}}</div>
+    </div>
+
+    {{ form_row(formRecetteNegative.ingredientRecetteNegative) }}
+    
+    {{ form_row(formRecetteNegative.preparationRecetteNegative) }}
+
+    <div class="row">
+        <div class="col"><a href="{{ path('admin_recetteNegatives') }}" class="btn btn-warning btn-block">Annuler</a></div>
+        <div class="col"><input type="submit" class="btn btn-success btn-block" value="Valider les modifications"></div>
+    </div>
+    <br>
+
+    {{ form_end(formRecetteNegative) }}
+
+{% endblock %}

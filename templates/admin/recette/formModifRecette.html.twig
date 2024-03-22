@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification recette{% endblock %}
+
+{% block body %}
+    <h1 class="text-center pt-2 ">Modification d'une recette</h1>
+
+    {{ form_start(formRecette,{'attr':{'novalidate':'novalidate'}}) }}
+
+    {{ form_row(formRecette.nomRecette) }}
+
+    {{ form_row(formRecette.imageRecette) }}
+
+    <div class="row">
+        <div class="col">{{form_row(formRecette.personneRecette)}}</div>
+        <div class="col">{{form_row(formRecette.preparationdureeRecette)}}</div>
+        <div class="col">{{form_row(formRecette.cuissonRecette)}}</div>
+        <div class="col">{{form_row(formRecette.typeRecette)}}</div>
+    </div>
+
+    {{ form_row(formRecette.ingredientRecette) }}
+    
+    {{ form_row(formRecette.preparationRecette) }}
+
+    <div class="row">
+        <div class="col"><a href="{{ path('admin_recettes') }}" class="btn btn-warning btn-block">Annuler</a></div>
+        <div class="col"><input type="submit" class="btn btn-success btn-block" value="Valider les modifications"></div>
+    </div>
+    <br>
+
+    {{ form_end(formRecette) }}
+
+{% endblock %}

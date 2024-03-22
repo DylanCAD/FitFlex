@@ -17,7 +17,7 @@
         {% endif %}
     </h1>
 
-    {{ form_start(formEquipement) }}
+    {{ form_start(formEquipement,{'attr':{'novalidate':'novalidate'}}) }}
 
     {% if equipement.id is defined %}
         {{ form_row(formEquipement.id, {'attr': {'hidden': 'hidden'}}) }}

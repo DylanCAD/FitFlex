@@ -4,9 +4,15 @@ namespace App\Entity;
 
 use App\Repository\EquipementRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=EquipementRepository::class)
+ * @UniqueEntity(
+ *      fields={"nomEquipement"},
+ *      message="Le nom de l'equipement est déjà utilisé."
+ * )
  */
 class Equipement
 {
@@ -19,6 +25,7 @@ class Equipement
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le nom de l'equipement est obligatoire.")
      */
     private $nomEquipement;
 

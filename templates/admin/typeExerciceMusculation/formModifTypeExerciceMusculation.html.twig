@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification exercice de musculation{% endblock %}
+
+{% block body %}
+    <h1 class="text-center pt-2 ">Modification d'un exercice de musculation</h1>
+
+    {{ form_start(formTypeExerciceMusculation,{'attr':{'novalidate':'novalidate'}}) }}
+
+    {{ form_row(formTypeExerciceMusculation.nomTypeExerciceMusculation) }}
+
+    {{ form_row(formTypeExerciceMusculation.imageTypeExerciceMusculation) }}
+
+    {{ form_row(formTypeExerciceMusculation.titreTypeExerciceMusculation) }}
+
+    {{ form_row(formTypeExerciceMusculation.descriptionTypeExerciceMusculation) }}
+
+    <div class="row">
+        <div class="col"><a href="{{ path('admin_typeExerciceMusculations') }}" class="btn btn-warning btn-block">Annuler</a></div>
+        <div class="col"><input type="submit" class="btn btn-success btn-block" value="Valider les modifications"></div>
+    </div>
+    <br>
+
+    {{ form_end(formTypeExerciceMusculation) }}
+
+{% endblock %}

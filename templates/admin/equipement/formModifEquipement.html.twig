@@ -5,7 +5,7 @@
 {% block body %}
     <h1 class="text-center pt-2 ">Modification d'un equipement</h1>
 
-    {{ form_start(formEquipement) }}
+    {{ form_start(formEquipement,{'attr':{'novalidate':'novalidate'}}) }}
 
     {{ form_row(formEquipement.nomEquipement) }}
 

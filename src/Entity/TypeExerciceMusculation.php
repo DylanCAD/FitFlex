@@ -6,9 +6,15 @@ use App\Repository\TypeExerciceMusculationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-/**
+  /**
  * @ORM\Entity(repositoryClass=TypeExerciceMusculationRepository::class)
+ * @UniqueEntity(
+ *      fields={"nomTypeExerciceMusculation"},
+ *      message="Le nom de l'exercice est déjà utilisé."
+ * )
  */
 class TypeExerciceMusculation
 {
@@ -21,6 +27,7 @@ class TypeExerciceMusculation
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le nom de l'exercice est obligatoire.")
      */
     private $nomTypeExerciceMusculation;
 

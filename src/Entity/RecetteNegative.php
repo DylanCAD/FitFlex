@@ -4,9 +4,15 @@ namespace App\Entity;
 
 use App\Repository\RecetteNegativeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-/**
+  /**
  * @ORM\Entity(repositoryClass=RecetteNegativeRepository::class)
+ * @UniqueEntity(
+ *      fields={"nomRecetteNegative"},
+ *      message="Le nom de la recette est déjà utilisée."
+ * )
  */
 class RecetteNegative
 {
@@ -19,6 +25,7 @@ class RecetteNegative
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le nom de la recette est obligatoire.")
      */
     private $nomRecetteNegative;
 

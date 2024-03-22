@@ -48,34 +48,40 @@ class EquipementController extends AbstractController
         ]);
     }
 
-/**
- * @Route("/admin/equipement/modif/{id}", name="admin_equipement_modif", methods={"GET","POST"})
- */
-public function modifEquipement($id, Request $request, EntityManagerInterface $manager, EquipementRepository $equipementRepository)
-{
-    $equipement = $equipementRepository->find($id);
+    /**
+    * @Route("/admin/equipement/modif/{id}", name="admin_equipement_modif", methods={"GET","POST"})
+    */
+    public function modifEquipement($id, Request $request, EntityManagerInterface $manager, EquipementRepository $equipementRepository)
+    {
+        $equipement = $equipementRepository->find($id);
 
-    if (!$equipement) {
-        throw new NotFoundHttpException('Equipement non trouvé');
-    }
+        if (!$equipement) {
+            throw new NotFoundHttpException('Equipement non trouvé');
+        }
 
-    // Créer le formulaire en utilisant l'équipement à modifier
-    $form = $this->createForm(EquipementType::class, $equipement);
-    $form->handleRequest($request);
+        // Créer le formulaire en utilisant l'équipement à modifier
+        $form = $this->createForm(EquipementType::class, $equipement);
+        $form->handleRequest($request);
 
-    if ($form->isSubmitted() && $form->isValid()) {
-        // Aucun besoin de persister l'équipement, il est déjà enregistré dans la base de données
-        $manager->flush();
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Vérifier si le champ nomEquipement n'est pas vide
+            if (!$equipement->getNomEquipement()) {
+                $this->addFlash('error', 'Le nom de l\'équipement est obligatoire.');
+                return $this->redirectToRoute('admin_equipement_modif', ['id' => $id]);
+            }
+
+            // Aucun besoin de persister l'équipement, il est déjà enregistré dans la base de données
+            $manager->flush();
         
-        $this->addFlash("success", "L'equipement a bien été modifié");
-        return $this->redirectToRoute('admin_equipements');
-    }
+            $this->addFlash("success", "L'equipement a bien été modifié");
+            return $this->redirectToRoute('admin_equipements');
+        }
 
-    return $this->render('admin/equipement/formModifEquipement.html.twig', [
-        'formEquipement' => $form->createView(),
-        'equipementId' => $id, // Passer l'ID de l'équipement au template
-    ]);
-}
+        return $this->render('admin/equipement/formModifEquipement.html.twig', [
+            'formEquipement' => $form->createView(),
+            'equipementId' => $id, // Passer l'ID de l'équipement au template
+        ]);
+    }
 
     /**
      * @Route("/admin/equipement/suppression/{id}", name="admin_equipement_suppression", methods={"GET"})

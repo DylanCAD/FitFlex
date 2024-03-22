@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.min.css">
     <link rel="stylesheet" href=" {{asset('css/app.css')}} ">
     <script src="https://kit.fontawesome.com/f4512bde7a.js" crossorigin="anonymous"></script>
+    <link rel="icon" type="image/png" href="{{asset('image/logo1.png')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
         {% block stylesheets %}{% endblock %}
     </head>
@@ -35,7 +37,11 @@
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Administration</a>
         <div class="dropdown-menu">
+            <a class="dropdown-item" href=" {{path('admin_exerciceMusculations')}} ">Gestion des groupes musculaire</a>
+            <a class="dropdown-item" href=" {{path('admin_typeExerciceMusculations')}} ">Gestion des exercices de musculation</a>
             <a class="dropdown-item" href=" {{path('admin_equipements')}} ">Gestion des equipements</a>
+            <a class="dropdown-item" href=" {{path('admin_recettes')}} ">Gestion des recettes pour prendre du poids</a>
+            <a class="dropdown-item" href=" {{path('admin_recetteNegatives')}} ">Gestion des recettes pour perdre du poids</a>
         </div>
     </li>
 
@@ -55,6 +61,7 @@
     {% block body %}{% endblock %}
 </div>
 
+<br>
 <footer class="footer">
     <div class="container">
         <div class="row">

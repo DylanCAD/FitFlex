@@ -28,13 +28,13 @@ class EquipementType extends AbstractType
                 ]
             ])
             ->add('imageEquipement', TextType::class,[
-                'label'=> "Image de de l'equipement",
+                'label'=> "Image de l'equipement",
                 'attr'=>[
                     "placeholder"=>"Saisir l'image de l'equipement"
                 ]
             ])
             ->add('lienEquipement', UrlType::class,[
-                'label'=> "Lien de de l'equipement",
+                'label'=> "Lien de l'equipement",
                 'attr'=>[
                     "placeholder"=>"Saisir le lien de l'equipement"
                 ]
