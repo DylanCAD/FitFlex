@@ -1,5 +1,18 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Connexion{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        body {
+            background-image: url('{{ asset('image/accueil.jpg') }}');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+    </style>
+{% endblock %}
+
 {% block body %}
     <div class="container">
         <div class="row justify-content-center">
@@ -24,8 +37,8 @@
                             <input type="password" id="password" name="_password" class="form-control" required>
                         </div>
 
-                        <div class="form-group">
-                            <input type="submit" class="btn btn-success btn-block" value="Connexion">
+                        <div class="d-flex align-items-center justify-content-center flex-column">
+                            <input type="submit" class="btn btn-primary btn-lg" value="Connexion">
                         </div>
                     </form>
                         <p><a href="#">Mot de passe oublié</a></p>

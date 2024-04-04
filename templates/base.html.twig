@@ -39,6 +39,9 @@
         <li class="nav-item">
             <a class="nav-link" href=" {{path('favorite_exercises')}} ">Exercices de musculation favoris</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Journal de performance</a>
+        </li>
         {% endif %}
 
         {% if app.user and is_granted('ROLE_ADMIN') %}    <li class="nav-item dropdown">
@@ -66,19 +69,23 @@
         <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{app.user.getFullName()}}</a>
         <div class="dropdown-menu dropdown-menu-right">
-            <a class="dropdown-item" href="#">Mon profil</a>
+            <a class="dropdown-item" href=" {{path('user_profile')}} ">Mon profil</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href=" {{path('app_logout')}} ">Se déconnecter</a>
         </div>
     </li>
    
    {% else %}
-        <li class="nav-item">
-        <a href=" {{path('app_login')}} " class="nav-link">Se connecter</a>    
+    <li class="nav-item mr-3">
+        <button type="button" class="btn btn-outline-secondary">
+            <a href="{{ path('app_login') }}" class="nav-link">Se connecter</a>
+        </button>
     </li>
 
     <li class="nav-item">
-        <a href=" {{path('app_register')}} " class="nav-link">S'inscrire</a>    
+        <button type="button" class="btn btn-secondary">
+            <a href="{{ path('app_register') }}" class="nav-link">S'inscrire</a>
+        </button>
     </li>
    {% endif %}
 

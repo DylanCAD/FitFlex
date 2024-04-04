@@ -19,7 +19,7 @@
                     <hr>
                     <img class="imgliste mx-auto d-block" src="{{ asset(favoriteExercise.getTypeExerciceMusculation().getImageTypeExerciceMusculation()) }}" alt="Card image">
                     <div class="card-body">
-                        <a href="{{ path('ficheTypeExerciceMusculation', {'id': favoriteExercise.getTypeExerciceMusculation().getId() }) }}" class="btn btn-outline-light">Voir détails</a>
+                        <a href="{{ path('ficheTypeExerciceMusculation', {'id': favoriteExercise.getTypeExerciceMusculation().getId() }) }}" class="btn btn-outline-light mr-1">Voir détails</a>
                         <button class="btn btn-outline-danger delete-favorite" data-exercise-id="{{ favoriteExercise.getExerciseId() }}">Supprimer des favoris</button>
                     </div>
                 </div>
