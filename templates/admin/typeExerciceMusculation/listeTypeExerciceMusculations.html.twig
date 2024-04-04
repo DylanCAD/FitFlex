@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion exercices de musculation{% endblock %}
+
+{% block body %}
+    <h1 class="titre pt-2 text-center">Gestion des exercices de musculation</h1>
+    <a href="{{ path('admin_typeExerciceMusculation_ajout') }}" class="btn btn-success" style="color: black">Ajouter un exercice de musculation</a>
+    <hr>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col-1"></th>
+                    <th scope="col-2">Nom</th>
+                    <th scope="col-7">Détail</th>
+                    <th scope="col-2">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for leTypeExerciceMusculation in lesTypeExerciceMusculations %}
+                    <tr class="table-light">
+                        <td class="col-1">
+                            {% if leTypeExerciceMusculation.imageTypeExerciceMusculation is not null %}
+                                <img class="imgliste mx-auto d-block" style="height: auto; width: 90px; display: block;" src="{{ asset(leTypeExerciceMusculation.imageTypeExerciceMusculation) }}" alt="Card image">
+                            {% endif %}
+                        </td>
+                        <td class="col-2" style="color: black">{{ leTypeExerciceMusculation.nomTypeExerciceMusculation }}</td>
+                        <td class="col-7">
+                            <p class="d-flex flex-row" style="color: black">
+                                <span class="align-self-center badge badge-success" style="color: black">{{ leTypeExerciceMusculation.titreTypeExerciceMusculation }}</span>
+                            </p>
+                            <p style="color: black">
+                                {{ leTypeExerciceMusculation.descriptionTypeExerciceMusculation|slice(0,100)|raw }} ...
+                            </p>
+                        </td>
+                        
+                        <td class="col-2">
+                            <div class="d-flex flex-row">
+                                <a href="{{ path('admin_typeExerciceMusculation_modif', {'id': leTypeExerciceMusculation.id }) }}" class="btn btn-primary"><i class="fas fa-pen"></i></a>
+                                &nbsp;&nbsp;
+                                
+                                <a class="btn btn-danger" 
+                                   data-toggle="modal" 
+                                   data-target="#modalSimple"
+                                   data-titre="Suppression de l'exercice de musculation"
+                                   data-message="Êtes vous sur de vouloir supprimer l'exercice de musculation : {{ leTypeExerciceMusculation.nomTypeExerciceMusculation }}"
+                                   data-libelleBouton = "Supprimer l'exercice de musculation"
+                                   data-lien= " {{ path('admin_typeExerciceMusculation_suppression', {'id': leTypeExerciceMusculation.id}) }}"
+                                ><i class="far fa-trash-alt"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+  {% include "include/_modale.html.twig" %}
+{% endblock %}

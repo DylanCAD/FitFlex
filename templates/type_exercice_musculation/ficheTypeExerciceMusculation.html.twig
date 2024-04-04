@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fiche de l'exercice de musculation{% endblock %}
+
+{% block body %}
+  <br>
+  <div class="container position-relative text-center">
+    <div class="row pt-2">
+      <div class="cardfiche text-white bg-primary mb-3">
+        <div class="card-header">{{ leTypeExerciceMusculation.nomTypeExerciceMusculation }}</div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12 col-md-3">  
+              <img class="imgfiche mx-auto d-block " src="{{ asset(leTypeExerciceMusculation.imageTypeExerciceMusculation) }}" alt="Card image">
+            </div>
+            <div class="col-12 col-md-9">  
+              <p class="card-text">Muscle : {{ leTypeExerciceMusculation.titreTypeExerciceMusculation }}</p>
+              <hr>
+              <p class="card-text">{{ leTypeExerciceMusculation.descriptionTypeExerciceMusculation|nl2br }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

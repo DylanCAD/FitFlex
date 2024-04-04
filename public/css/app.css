@@ -1,0 +1,128 @@
+.navbar-brand img {
+    width: 60px;
+    border-radius: 20%;
+}
+
+.card {
+    max-width: 20rem;
+}
+
+.cardfiche {
+    max-width: 100rem;
+}
+
+.imgliste{
+    border-radius: 5%;
+    height: 200px; 
+    width: 80%; 
+    display: block;
+}
+
+.imgfiche {
+    border-radius: 10%; 
+    height: 200px; 
+    width: 80%; 
+    display: block;
+}
+
+.titre{
+    color: #09bac2;
+    text-align: center;
+}
+
+.titreaccueil{
+    color: #09bac2;
+}
+
+.texteimg{
+    position: absolute;
+    top: 92%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    z-index: 1;
+    background-color: black;
+}
+
+.card-text{
+    text-align: left;
+}
+
+.card-titre{
+    color: black;
+}
+
+/* Image page d'accueil */
+.image-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.image-container .img-fluid {
+    height: 200px;
+}
+
+.btn {
+    margin-top: 10px;
+}
+
+.zoom-effect {
+    transition: transform 0.3s ease-in-out;
+}
+
+.zoom-effect:hover {
+    transform: scale(1.1);
+}
+
+.image-with-text {
+    position: relative;
+    overflow: hidden;
+}
+
+.image-text {
+    position: absolute;
+    bottom: 10px;
+    left: 20px;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 5px 10px;
+    font-size: 18px;
+    color: #000;
+}
+
+.image-container:hover {
+    cursor: pointer;
+}
+
+.footer {
+    background-color: #385c7c;
+    padding: 20px 0;
+}
+
+.footer h5 {
+    margin-bottom: 15px;
+}
+
+.footer ul li a {
+    color: #000;
+}
+
+.logo-footer {
+    max-width: 150px;
+    height: auto;
+    border-radius: 10%;
+}
+
+/* style du lien de la page equipements */
+.card-text .achat-lien {
+    color: black;
+    text-decoration: none;
+}
+
+.card-text .achat-lien:hover {
+    text-decoration: underline;
+}
+
+.photoProfil {
+    border-radius: 50%;
+    max-width: 60px;
+    height: auto;
+}

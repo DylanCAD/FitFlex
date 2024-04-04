@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification equipement{% endblock %}
+
+{% block body %}
+    <h1 class="text-center pt-2 ">Modification d'un equipement</h1>
+
+    {{ form_start(formEquipement,{'attr':{'novalidate':'novalidate'}}) }}
+
+    {{ form_row(formEquipement.nomEquipement) }}
+
+    {{ form_row(formEquipement.imageEquipement) }}
+
+    {{ form_row(formEquipement.descriptionEquipement) }}
+
+    {{ form_row(formEquipement.lienEquipement) }}
+
+    <div class="row">
+        <div class="col"><a href="{{ path('admin_equipements') }}" class="btn btn-warning btn-block">Annuler</a></div>
+        <div class="col"><input type="submit" class="btn btn-success btn-block" value="Valider les modifications"></div>
+    </div>
+    <br>
+
+    {{ form_end(formEquipement) }}
+
+{% endblock %}

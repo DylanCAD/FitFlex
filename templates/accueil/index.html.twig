@@ -1,0 +1,124 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil - FitFlex{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
+    <style>
+        body {
+            background-image: url('{{ asset('image/accueil.jpg') }}');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<br>
+<div class="jumbotron">
+  <div class="container position-relative text-center animate__animated animate__zoomIn">
+    <img src="{{ asset('image/FitflexBanniere.jpg')}}" alt="Image accueil" class="img-fluid mx-auto">
+  </div>
+    <br class="my-4">
+
+    <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h3 class="titreaccueil animate__animated animate__flipInX animate__delay-1s">FitFlex</h3>
+        <p>Mon objectif est de fournir des ressources complètes, des conseils pratiques et des exercices efficaces pour vous aider à surmonter les obstacles.</p>
+      </div>
+      <div class="col-md-6">
+        <img src="{{ asset('image/Bandeau1.jpg')}}" alt="Image à droite" class="img-fluid animate__animated animate__flipInX animate__delay-1s">
+      </div>
+    </div>
+  </div>
+
+<hr>
+
+<div class="container">
+<div class="row">
+    <div class="col-md-4">
+      <div class="image-container">
+        <a href="{{ path('exercicemusculations') }}">
+          <div class="image-with-text">
+            <img src="{{ asset('image/imgBouton1.jpg')}}" alt="Image 1" class="img-fluid zoom-effect">
+            <div class="image-text">Voir les exercices</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="image-container">
+        <a href="{{ path('equipements') }}">
+          <div class="image-with-text">
+            <img src="{{ asset('image/imgBouton2.jpg')}}" alt="Image 2" class="img-fluid zoom-effect">
+            <div class="image-text">Voir les equipements</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+<div class="col-md-4">
+    <div class="image-container">
+        <div id="recettes-image" class="image-with-text">
+            <a href="#" id="toggle-dropdown">
+                <img src="{{ asset('image/imgBouton3.jpg')}}" alt="Image 3" class="img-fluid zoom-effect">
+                <div class="image-text">Voir les recettes</div>
+            </a>
+        </div>
+        <div id="dropdown" style="display: none;">
+            <select id="choixRecettes" class="form-control">
+                <option value="{{ path('recettes') }}">Recettes pour prendre du poids</option>
+                <option value="{{ path('recettenegatives') }}">Recettes pour perdre du poids</option>
+            </select>
+            <button id="close-dropdown-btn" class="btn btn-secondary">Fermer</button>
+            <button id="redirect-btn" class="btn btn-primary">Go</button>
+        </div>
+        <div id="message" style="display: none;"></div>
+    </div>
+</div>
+
+<script>
+    document.getElementById("toggle-dropdown").addEventListener("click", function(event) {
+        event.preventDefault();
+        document.getElementById("dropdown").style.display = "block";
+    });
+
+    document.getElementById("close-dropdown-btn").addEventListener("click", function() {
+        document.getElementById("dropdown").style.display = "none";
+    });
+
+    document.getElementById("redirect-btn").addEventListener("click", function() {
+        var choix = document.getElementById("choixRecettes");
+        if (!choix.value) {
+            document.getElementById('message').innerHTML = "<div class='alert alert-danger'>Veuillez sélectionner une option.</div>";
+        } else {
+            window.location.href = choix.value;
+        }
+    });
+</script>
+
+</div>
+</div>
+
+<hr>
+
+<div class="container">
+    <div class="row">
+      <div class="col-md-6 animate__animated animate__flipInX animate__delay-1s">
+        <img src="{{ asset('image/Bandeau2.jpg')}}" alt="Image à gauche" class="img-fluid">
+      </div>
+      <div class="col-md-6">
+        <h3 class="titreaccueil animate__animated animate__flipInX animate__delay-1s">Peu importe votre niveau</h3>
+        <p>Rejoins notre communauté de passionnés qui se dépassent et se surpassent au quotidien pour atteindre leurs objectifs.</p>
+        <p>Inscris toi dès aujourd'hui et profite de tous les avantages de FitFlex.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

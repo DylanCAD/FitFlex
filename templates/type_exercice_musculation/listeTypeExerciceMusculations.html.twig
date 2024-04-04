@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Exercices de musculation{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row pt-2">
+            {% for typeExerciceMusculation in exerciceMusculation.getExercices() %}
+                <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <div class="card text-white bg-primary mb-3">
+                        <div class="card-header">{{ typeExerciceMusculation.getNomTypeExerciceMusculation() }}</div>
+                        <hr>
+                        <img class="imgliste mx-auto d-block" src="{{ asset(typeExerciceMusculation.imageTypeExerciceMusculation) }}" alt="Card image">
+                        <div class="card-body">
+                            <button class="btn btn-outline-light favorite-btn" data-exercise-id="{{ typeExerciceMusculation.id }}" data-favorite="{{ typeExerciceMusculation.isFavorite ? 'true' : 'false' }}">
+                                {% if typeExerciceMusculation.isFavorite %}
+                                    <i class="fas fa-heart"></i> Retirer des favoris
+                                {% else %}
+                                    <i class="far fa-heart"></i> Ajouter aux favoris
+                                {% endif %}
+                            </button>
+                            <hr>
+                            <h5 class="card-text">
+                                <a href="{{ path('ficheTypeExerciceMusculation', {'id': typeExerciceMusculation.id }) }}" class="badge badge-success">Voir détails</a>
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+    $('.favorite-btn').click(function () {
+        var exerciseId = $(this).data('exercise-id');
+        var isFavorite = $(this).data('favorite');
+        var button = $(this); // Sauvegarde du bouton cliqué pour utilisation ultérieure
+
+        $.ajax({
+            url: isFavorite === 'true' ? "{{ path('favorite_remove') }}" : "{{ path('favorite_add') }}",
+            type: "POST",
+            data: { exerciseId: exerciseId },
+            success: function (response) {
+                if (response.status === 'added') {
+                    // L'exercice a été ajouté aux favoris, mettez à jour l'interface utilisateur
+                    button.find('i').removeClass('far').addClass('fas');
+                    button.text('Retirer des favoris');
+                    button.data('favorite', 'true');
+                } else if (response.status === 'removed') {
+                    // L'exercice a été retiré des favoris, mettez à jour l'interface utilisateur
+                    button.find('i').removeClass('fas').addClass('far');
+                    button.text('Ajouter aux favoris');
+                    button.data('favorite', 'false');
+                }
+            }
+        });
+    });
+});
+    </script>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {% if exerciceMusculation.id is defined %}
+        Modification d'un groupe musculaire
+    {% else %}
+        Ajout d'un groupe musculaire
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    <h1 class="text-center pt-2">
+        {% if exerciceMusculation.id is defined %}
+            Modification d'un groupe musculaire
+        {% else %}
+            Ajout d'un groupe musculaire
+        {% endif %}
+    </h1>
+
+    {{ form_start(formExerciceMusculation,{'attr':{'novalidate':'novalidate'}}) }}
+
+    {% if exerciceMusculation.id is defined %}
+        {{ form_row(formExerciceMusculation.id, {'attr': {'hidden': 'hidden'}}) }}
+    {% endif %}
+    
+    {{ form_row(formExerciceMusculation.nomExerciceMusculation) }}
+
+    {{ form_row(formExerciceMusculation.imageExerciceMusculation) }}
+
+    <div class="row">
+        <div class="col">
+            <a href="{{ path('admin_exerciceMusculations') }}" class="btn btn-warning btn-block">Annuler</a>
+        </div>
+        <div class="col">
+            <input type="submit" class="btn btn-success btn-block" value="{% if exerciceMusculation.id is defined %}Valider les modifications{% else %}Valider{% endif %}">
+        </div>
+    </div>
+    <br>
+
+    {{ form_end(formExerciceMusculation) }}
+{% endblock %}

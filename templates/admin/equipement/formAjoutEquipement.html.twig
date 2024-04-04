@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {% if equipement.id is defined %}
+        Modification d'un équipement
+    {% else %}
+        Ajout d'un équipement
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    <h1 class="text-center pt-2">
+        {% if equipement.id is defined %}
+            Modification d'un équipement
+        {% else %}
+            Ajout d'un équipement
+        {% endif %}
+    </h1>
+
+    {{ form_start(formEquipement,{'attr':{'novalidate':'novalidate'}}) }}
+
+    {% if equipement.id is defined %}
+        {{ form_row(formEquipement.id, {'attr': {'hidden': 'hidden'}}) }}
+    {% endif %}
+
+    {{ form_row(formEquipement.nomEquipement) }}
+    {{ form_row(formEquipement.imageEquipement) }}
+    {{ form_row(formEquipement.descriptionEquipement) }}
+    {{ form_row(formEquipement.lienEquipement) }}
+
+    <div class="row">
+        <div class="col">
+            <a href="{{ path('admin_equipements') }}" class="btn btn-warning btn-block">Annuler</a>
+        </div>
+        <div class="col">
+            <input type="submit" class="btn btn-success btn-block" value="{% if equipement.id is defined %}Valider les modifications{% else %}Valider{% endif %}">
+        </div>
+    </div>
+    <br>
+
+    {{ form_end(formEquipement) }}
+{% endblock %}

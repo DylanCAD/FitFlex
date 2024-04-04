@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="jumbotron mt-5">
+                <h1 class="text-center">Inscription</h1>
+
+                {{ form_start(registrationForm) }}
+
+                {{ form_row(registrationForm.email) }}
+
+                <div class="row">
+                    <div class="col">{{ form_row(registrationForm.password.first) }}</div>
+                    <div class="col">{{ form_row(registrationForm.password.second) }}</div>
+                </div>
+
+                <div class="row">
+                    <div class="col">{{ form_row(registrationForm.nom_User) }}</div>
+                    <div class="col">{{ form_row(registrationForm.prenom_User) }}</div>
+                    <div class="col">{{ form_row(registrationForm.sexe_User) }}</div>
+                </div>
+
+                {{ form_row(registrationForm.avatar_User) }}
+
+                <div class="row">
+                    <div class="col">{{ form_row(registrationForm.age_User) }}</div>
+                    <div class="col">{{ form_row(registrationForm.taille_User) }}</div>
+                    <div class="col">{{ form_row(registrationForm.poids_User) }}</div>
+                </div>
+
+                <div class="row">
+                    <div class="col">{{ form_row(registrationForm.level_User) }}</div>
+                    <div class="col">{{ form_row(registrationForm.objectif_User) }}</div>
+                </div>
+
+                <div class="col"><input type="submit" class="btn btn-success btn-block" value="S'inscrire"></div>
+
+                {{ form_end(registrationForm) }}
+
+                {# Génération du lien de confirmation dans le mail #}
+                {% if user.confirmationToken %}
+                    {% set confirmationUrl = url('confirm_registration', {'token': user.confirmationToken}) %}
+                    {# Affichage du lien de confirmation dans le mail #}
+                    <p>Veuillez cliquer sur le lien suivant pour confirmer votre inscription : <a href="{{ confirmationUrl }}">{{ confirmationUrl }}</a></p>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {% if recette.id is defined %}
+        Modification d'une recette
+    {% else %}
+        Ajout d'une recette
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    <h1 class="text-center pt-2">
+        {% if recette.id is defined %}
+            Modification d'une recette
+        {% else %}
+            Ajout d'une recette
+        {% endif %}
+    </h1>
+
+    {{ form_start(formRecette,{'attr':{'novalidate':'novalidate'}}) }}
+
+    {% if recette.id is defined %}
+        {{ form_row(formRecette.id, {'attr': {'hidden': 'hidden'}}) }}
+    {% endif %}
+    
+    {{ form_row(formRecette.nomRecette) }}
+
+    {{ form_row(formRecette.imageRecette) }}
+
+    <div class="row">
+        <div class="col">{{form_row(formRecette.personneRecette)}}</div>
+        <div class="col">{{form_row(formRecette.preparationdureeRecette)}}</div>
+        <div class="col">{{form_row(formRecette.cuissonRecette)}}</div>
+        <div class="col">{{form_row(formRecette.typeRecette)}}</div>
+    </div>
+
+    {{ form_row(formRecette.ingredientRecette) }}
+    
+    {{ form_row(formRecette.preparationRecette) }}
+
+    <div class="row">
+        <div class="col">
+            <a href="{{ path('admin_recettes') }}" class="btn btn-warning btn-block">Annuler</a>
+        </div>
+        <div class="col">
+            <input type="submit" class="btn btn-success btn-block" value="{% if recette.id is defined %}Valider les modifications{% else %}Valider{% endif %}">
+        </div>
+    </div>
+    <br>
+
+    {{ form_end(formRecette) }}
+{% endblock %}

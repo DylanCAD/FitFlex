@@ -1,19 +1,141 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+    <meta charset="UTF-8">
+    <title>{% block title %}FITFLEX{% endblock %}</title>
+    <link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.min.css">
+    <link rel="stylesheet" href=" {{asset('css/app.css')}} ">
+    <script src="https://kit.fontawesome.com/f4512bde7a.js" crossorigin="anonymous"></script>
+    <link rel="icon" type="image/png" href="{{asset('image/logo1.png')}}">
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+        {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href=" {{path('accueil')}}"><img src={{asset("image/logo1.png")}} alt="Logo FitFlex"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarColor01">
+    <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+        <a class="nav-link" href="{{path('exercicemusculations')}}">Exercices de fitness</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href=" {{path('equipements')}} ">Equipements de fitness</a>
+    </li>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Recettes de nutrition</a>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href=" {{path('recettes')}} ">Recettes pour prendre du poids</a>
+            <a class="dropdown-item" href=" {{path('recettenegatives')}} ">Recettes pour perdre du poids</a>
+        </div>
+    </li>
+        
+        {% if app.user %}        
+        <li class="nav-item">
+            <a class="nav-link" href=" {{path('favorite_exercises')}} ">Exercices de musculation favoris</a>
+        </li>
+        {% endif %}
+
+        {% if app.user and is_granted('ROLE_ADMIN') %}    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Administration</a>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href=" {{path('admin_exerciceMusculations')}} ">Gestion des groupes musculaire</a>
+            <a class="dropdown-item" href=" {{path('admin_typeExerciceMusculations')}} ">Gestion des exercices de musculation</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href=" {{path('admin_equipements')}} ">Gestion des equipements</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href=" {{path('admin_recettes')}} ">Gestion des recettes pour prendre du poids</a>
+            <a class="dropdown-item" href=" {{path('admin_recetteNegatives')}} ">Gestion des recettes pour perdre du poids</a>
+        </div>
+    </li>
+        {% endif %}
+
+    </ul>
+   </div>
+
+   <ul class="navbar-nav my-auto">
+   {% if app.user %}
+       <li class="nav-item">
+        <img class="photoProfil" src=" {{ app.user.getAvatarUser()}} " alt="photo de {{app.user.getFullName()}}">
+    </li>
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{app.user.getFullName()}}</a>
+        <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item" href="#">Mon profil</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href=" {{path('app_logout')}} ">Se déconnecter</a>
+        </div>
+    </li>
+   
+   {% else %}
+        <li class="nav-item">
+        <a href=" {{path('app_login')}} " class="nav-link">Se connecter</a>    
+    </li>
+
+    <li class="nav-item">
+        <a href=" {{path('app_register')}} " class="nav-link">S'inscrire</a>    
+    </li>
+   {% endif %}
+
+   </ul>
+</nav>
+
+<div class="container">
+{# affiche tous les messages flash #}
+{% for label, messages in app.flashes %}
+    <div class="alert alert-{{label}} mt-3">
+    {% for message in messages %}
+        <p> {{message}} </p>
+    {% endfor %}
+    </div>
+{% endfor %}
+    {% block body %}{% endblock %}
+</div>
+
+<br>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h5>À propos de FitFlex</h5>
+                <p>Découvrez notre plateforme dédiée au fitness et à la santé. Trouvez des conseils, des exercices et des recettes pour atteindre vos objectifs.</p>
+            </div>
+            <div class="col-md-2 col-sm-6">
+                <h5>Liens utiles</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#">Mentions légales</a></li>
+                    <li><a href="#">CGU</a></li>
+                    <li><a href="#">Plan du site</a></li>
+                </ul>
+            </div>
+            <div class="col-md-2 col-sm-6">
+                <h5>Vie privée</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#">Données personnelles</a></li>
+                    <li><a href="#">Informations cookie</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4 col-sm-12 text-md-right">
+                <ul class="list-unstyled mb-0">
+                    <li class="mb-2"><a href="#">Politique de confidentialité de FitFlex</a></li>
+                </ul>
+                <a href="{{ path('accueil') }}">
+                    <img src="{{ asset('image/logoFitFlex.jpg') }}" alt="Logo FitFlex" class="logo-footer">
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+            
+        {% block javascripts %}{% endblock %}
     </body>
 </html>

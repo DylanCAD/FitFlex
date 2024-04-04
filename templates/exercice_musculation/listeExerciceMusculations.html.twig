@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Groupes musculaire{% endblock %}
+
+{% block body %}
+<br>
+<div class="container position-relative text-center animate__animated animate__zoomIn">
+    <img src="{{ asset('image/exercicemusculation/ExerciceMusculationBanniere.jpg')}}" alt="Image accueil" class="img-fluid mx-auto">
+    <p class="texteimg">Groupes musculaire à travailler en salle de sport</p>
+</div>
+<h1 class="titre pt-2 text-center animate__animated animate__flipInX animate__delay-1s">Groupes musculaire</h1>
+<p class="pt-2 text-center">A la recherche de nouveaux exercices ou d’explications sur l’exécution du mouvement d’un ou de plusieurs exercices de musculation ? FitFlex vous présentent ci-dessous tous les exercices de musculation que vous pouvez effectuer dans votre salle de sport. Avec ce guide, vous serez en capacité de varier vos entraînements avec une multitude d’exercices visant les différentes parties du corps, afin de développer des programmes de musculation qui vous conviennent et vous correspondent.</p>
+<p class="pt-2 text-center">Voici la liste des exercices de musculation que vous pourrez pratiquer dans votre salle de sport.</p>
+<hr>
+<div class="container pt-2">
+    <div class="row">
+        {% for leExerciceMusculation in lesExerciceMusculations %}
+        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 mb-4">
+            <div class="card text-white bg-primary animate__animated animate__flipInX animate__delay-1s">
+                <div class="card-header">{{leExerciceMusculation.nomExerciceMusculation}}</div>  
+                <hr>  
+                <img class="imgliste mx-auto d-block" src="{{leExerciceMusculation.imageExerciceMusculation}}" alt="Card image">
+                <div class="card-body">
+                    <a href="{{ path('exercicemusculation_types', { 'id': leExerciceMusculation.id }) }}" class="badge badge-success">Voir les exercices ></a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+</div>
+{% endblock %}

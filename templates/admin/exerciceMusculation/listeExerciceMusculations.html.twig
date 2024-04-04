@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion groupes musculaire{% endblock %}
+
+{% block body %}
+    <h1 class="titre pt-2 text-center">Gestion des groupes musculaire</h1>
+    <a href="{{ path('admin_exerciceMusculation_ajout') }}" class="btn btn-success" style="color: black">Ajouter un groupe musculaire</a>
+    <hr>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col-1"></th>
+                    <th scope="col-2">Nom</th>
+                    <th scope="col-2">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for leExerciceMusculation in lesExerciceMusculations %}
+                    <tr class="table-light">
+                        <td class="col-1">
+                            {% if leExerciceMusculation.imageExerciceMusculation is not null %}
+                                <img class="imgliste mx-auto d-block" style="height: auto; width: 90px; display: block;" src="{{ asset(leExerciceMusculation.imageExerciceMusculation) }}" alt="Card image">
+                            {% endif %}
+                        </td>
+                        <td class="col-2" style="color: black">{{ leExerciceMusculation.nomExerciceMusculation }}</td>
+                        
+                        <td class="col-2">
+                            <div class="d-flex flex-row">
+                                <a href="{{ path('admin_exerciceMusculation_modif', {'id': leExerciceMusculation.id }) }}" class="btn btn-primary"><i class="fas fa-pen"></i></a>
+                                &nbsp;&nbsp;
+                                
+                                <a class="btn btn-danger" 
+                                   data-toggle="modal" 
+                                   data-target="#modalSimple"
+                                   data-titre="Suppression du groupe musculaire"
+                                   data-message="Êtes vous sur de vouloir supprimer le groupe musculaire : {{ leExerciceMusculation.nomExerciceMusculation }}"
+                                   data-libelleBouton = "Supprimer le groupe musculaire"
+                                   data-lien= " {{ path('admin_exerciceMusculation_suppression', {'id': leExerciceMusculation.id}) }}"
+                                ><i class="far fa-trash-alt"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+  {% include "include/_modale.html.twig" %}
+{% endblock %}

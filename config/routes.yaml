@@ -1,3 +1,17 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+admin_equipement_modif:
+    path: /admin/equipement/modif/{id}
+    controller: App\Controller\Admin\EquipementController::modifEquipement
+    methods: ['GET', 'POST']
+
+admin_equipement_suppression:
+    path: /admin/equipement/suppression/{id}
+    controller: App\Controller\Admin\EquipementController::suppressionEquipement
+    methods: ['GET']
+
+confirm_registration:
+    path: '/confirm-registration/{token}'
+    controller: App\Controller\RegistrationController::confirmRegistration
