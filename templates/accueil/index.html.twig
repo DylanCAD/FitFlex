@@ -1,30 +1,74 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Accueil - FitFlex{% endblock %}
+{% block title %}Accueil - Apollift{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-
     <style>
-        body {
-            background-image: url('{{ asset('image/accueil.jpg') }}');
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
+        .moving-text {
+            font-size: 3em; /* Taille de police en gros */
+            animation: moveText 5s infinite alternate; /* Animation de mouvement */
+        }
+        @keyframes moveText {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(20px); /* Déplacez le texte vers la droite de 20px */
+            }
         }
     </style>
 {% endblock %}
 
 {% block body %}
 <br>
-<div class="jumbotron">
+
   <div class="container position-relative text-center animate__animated animate__zoomIn">
-    <img src="{{ asset('image/FitflexBanniere.jpg')}}" alt="Image accueil" class="img-fluid mx-auto">
+    <img src="{{ asset('image/imgaccueil2.png')}}" alt="Image accueil" class="img-fluid mx-auto">
   </div>
+  
+  <h1 style="color:#385c7c; text-align: center">Prépare-toi à une aventure inoubliable</h1>
+  <h3 style="text-align: center">Apollift transforme ton bien-être.</h3>
+
+<div style="text-align: center;">
+    <div style="display: inline-block; background-color: #385c7c; border-radius: 50%; padding: 10px; width: 40px; height: 40px;">
+        <svg aria-hidden="true" focusable="false" fill="none" width="18" class="icon icon-arrow-down" viewBox="0 0 18 16" style="cursor: pointer; color:white" onclick="scrollPage()">
+            <path d="m1 4 8 8 8-8" stroke="currentColor" stroke-linecap="square"></path>
+        </svg>
+    </div>
+</div>
+
+<script>
+    function scrollPage() {
+        window.scrollBy({
+            top: window.innerHeight, // Défilement d'une hauteur de fenêtre
+            left: 0,
+            behavior: 'smooth' // Défilement fluide
+        });
+    }
+</script>
+
+  <hr>
     <br class="my-4">
 
-    <div class="container">
+<div class="container position-relative text-center animate__animated animate__zoomIn">
+    <img src="{{ asset('image/imgaccueil.png')}}" alt="image accueil" class="img-fluid mx-auto">
+    <div class="position-absolute top-0 start-50 translate-middle-x" style="top: 11%; left: 17%; transform: translate(-50%, -50%);">
+        <p style="color: white; padding: 10px;">
+            <span style="background-color: black; padding: 5px;">Des ressources complètes, des conseils pratiques <br>et des exercices efficaces pour vous aider <br>à surmonter les obstacles.</span>
+        </p>
+    </div>
+    <div class="position-absolute top-0 end-0 translate-middle-y" style="top: 92%; right: 2%; transform: translateY(-50%);">
+        <p style="color: white; padding: 10px;">
+            <span style="background-color: black; padding: 5px;">Une communauté de passionnés <br>qui se dépassent et se surpassent au quotidien <br>pour atteindre leurs objectifs.</span>
+        </p>
+    </div>
+</div>
+
+<br>
+
+    {#<div class="container">
     <div class="row">
       <div class="col-md-6">
         <h3 class="titreaccueil animate__animated animate__flipInX animate__delay-1s">FitFlex</h3>
@@ -34,9 +78,13 @@
         <img src="{{ asset('image/Bandeau1.jpg')}}" alt="Image à droite" class="img-fluid animate__animated animate__flipInX animate__delay-1s">
       </div>
     </div>
-  </div>
+  </div>#}
 
 <hr>
+
+<div class="container text-center">
+    <p class="moving-text">Soyez divins. Devenez légendaires.</p>
+</div>
 
 <div class="container">
 <div class="row">
@@ -104,7 +152,7 @@
 
 </div>
 </div>
-
+{#
 <hr>
 
 <div class="container">
@@ -119,6 +167,5 @@
       </div>
     </div>
   </div>
-
-</div>
+#}
 {% endblock %}

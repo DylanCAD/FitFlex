@@ -6,9 +6,9 @@
 <br>
 <div class="container position-relative text-center animate__animated animate__zoomIn">
     <img src="{{ asset('image/equipement/EquipementBanniere.jpg')}}" alt="Image accueil" class="img-fluid mx-auto">
-    <p class="texteimg">Les accessoires indispensables à avoir chez soi</p>
+    <h2 class="texteimg">Les accessoires indispensables à avoir chez soi</h2>
 </div>
-<h1 class="titre pt-2 text-center animate__animated animate__flipInX animate__delay-1s">Equipements de fitness</h1>
+{#<h1 class="titre pt-2 text-center animate__animated animate__flipInX animate__delay-1s">Equipements de fitness</h1>#}
 <p class="pt-2 text-center">Vous avez envie de vous muscler, vous entretenir, brûler des calories... mais vous n'avez pas toujours le temps ou l'envie de vous rendre dans une salle de sport. Heureusement, il existe du matériel peu encombrant pour faire son sport à la maison.</p>
 <p class="pt-2 text-center">Piochez ce qui vous plaît dans nos suggestions en fonction de votre programme de musculation.</p>
 <hr>
@@ -22,8 +22,8 @@
                 <img class="imgliste mx-auto d-block" src="{{leEquipement.imageEquipement}}" alt="Card image">
                 <div class="card-body">
                     <p class="card-text">{{leEquipement.descriptionEquipement}}</p>
-                    <hr>  
-                    <p class="card-text"><a href="{{ leEquipement.lienEquipement }}" class="achat-lien">J'achète ></a></p>
+                        {# <hr> #}
+                        {# <p class="card-text"><a href="{{ leEquipement.lienEquipement }}" class="achat-lien">J'achète ></a></p> #}
                 </div>
             </div>
         </div>

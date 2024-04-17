@@ -25,4 +25,10 @@ security:
                 target: app_login
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
-        # Configurez les accès aux différentes parties de votre site ici
+        - { path: ^/login$, roles: PUBLIC_ACCESS }
+        - { path: ^/register$, roles: PUBLIC_ACCESS }
+        - { path: ^/, roles: ROLE_USER }
+    
+    role_hierarchy:
+        ROLE_SUPERVISEUR: ROLE_USER
+        ROLE_ADMIN: ROLE_SUPERVISEUR

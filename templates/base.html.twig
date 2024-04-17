@@ -2,11 +2,11 @@
 <html>
     <head>
     <meta charset="UTF-8">
-    <title>{% block title %}FITFLEX{% endblock %}</title>
+    <title>{% block title %}Apollift{% endblock %}</title>
     <link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.min.css">
     <link rel="stylesheet" href=" {{asset('css/app.css')}} ">
     <script src="https://kit.fontawesome.com/f4512bde7a.js" crossorigin="anonymous"></script>
-    <link rel="icon" type="image/png" href="{{asset('image/logo1.png')}}">
+    <link rel="icon" type="image/png" href="{{asset('image/logo.jpg')}}">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
@@ -14,7 +14,7 @@
     </head>
     <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <a class="navbar-brand" href=" {{path('accueil')}}"><img src={{asset("image/logo1.png")}} alt="Logo FitFlex"></a>
+  <a class="navbar-brand" href=" {{path('accueil')}}"><img src={{asset("image/logo.jpg")}} alt="Logo Apollift"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -37,10 +37,10 @@
         
         {% if app.user %}        
         <li class="nav-item">
-            <a class="nav-link" href=" {{path('favorite_exercises')}} ">Exercices de musculation favoris</a>
+            <a class="nav-link" href=" {{path('favorite_exercises')}} ">Exercices de fitness favoris</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Journal de performance</a>
+            <a class="nav-link" href=" {{path('performances')}} ">Journal de performance</a>
         </li>
         {% endif %}
 
@@ -109,7 +109,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-                <h5>À propos de FitFlex</h5>
+                <h5>À propos de Apollift</h5>
                 <p>Découvrez notre plateforme dédiée au fitness et à la santé. Trouvez des conseils, des exercices et des recettes pour atteindre vos objectifs.</p>
             </div>
             <div class="col-md-2 col-sm-6">
@@ -129,10 +129,10 @@
             </div>
             <div class="col-md-4 col-sm-12 text-md-right">
                 <ul class="list-unstyled mb-0">
-                    <li class="mb-2"><a href="#">Politique de confidentialité de FitFlex</a></li>
+                    <li class="mb-2"><a href="#">Politique de confidentialité de Apollift</a></li>
                 </ul>
                 <a href="{{ path('accueil') }}">
-                    <img src="{{ asset('image/logoFitFlex.jpg') }}" alt="Logo FitFlex" class="logo-footer">
+                    <img src="{{ asset('image/logo.jpg') }}" alt="Logo Apollift" class="logo-footer">
                 </a>
             </div>
         </div>
