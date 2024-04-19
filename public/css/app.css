@@ -26,12 +26,12 @@
 }
 
 .titre{
-    color: #09bac2;
+    color: white;
     text-align: center;
 }
 
 .titreaccueil{
-    color: #09bac2;
+    color: #385c7c;
 }
 
 /* texte sur l'image */
@@ -133,4 +133,13 @@
 
 body {
     margin: 0;
+}
+
+/* couleur du formulaire type exercice musculation */
+.select2-container--default .select2-results__option {
+    color: black;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    color: black;
 }

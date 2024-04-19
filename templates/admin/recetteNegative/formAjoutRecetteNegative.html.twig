@@ -23,20 +23,30 @@
         {{ form_row(formRecetteNegative.id, {'attr': {'hidden': 'hidden'}}) }}
     {% endif %}
     
-    {{ form_row(formRecetteNegative.nomRecetteNegative) }}
-
-    {{ form_row(formRecetteNegative.imageRecetteNegative) }}
-
     <div class="row">
-        <div class="col">{{form_row(formRecetteNegative.personneRecetteNegative)}}</div>
-        <div class="col">{{form_row(formRecetteNegative.preparationdureeRecetteNegative)}}</div>
-        <div class="col">{{form_row(formRecetteNegative.cuissonRecetteNegative)}}</div>
-        <div class="col">{{form_row(formRecetteNegative.typeRecetteNegative)}}</div>
+        <div class="col-8">
+            {{ form_row(formRecetteNegative.nomRecetteNegative) }}
+            <div class="row">
+                <div class="col">{{form_row(formRecetteNegative.personneRecetteNegative)}}</div>
+                <div class="col">{{form_row(formRecetteNegative.typeRecetteNegative)}}</div>
+            </div>
+            <div class="row">
+                <div class="col">{{form_row(formRecetteNegative.preparationdureeRecetteNegative)}}</div>
+                <div class="col">{{form_row(formRecetteNegative.cuissonRecetteNegative)}}</div>
+            </div>
+            {{ form_row(formRecetteNegative.ingredientRecetteNegative) }}
+            {{ form_row(formRecetteNegative.preparationRecetteNegative) }}
+        </div>    
+        <div class="col-4">
+        <div>
+            <img src="{{ asset("image/imagevierge.png") }}" id="imageAffichee" alt="Card image" class="rounded mx-auto d-block img-thumbnail">
+        </div>
+        <div>
+        {{ form_row(formRecetteNegative.imageFile, {'id':'imageFile'}) }}
+        <a class="btn btn-primary d-block center" id="chargeImage"><i class="fas fa-upload"></i> Charger la recette</a>    
+        </div>
+        </div>
     </div>
-
-    {{ form_row(formRecetteNegative.ingredientRecetteNegative) }}
-    
-    {{ form_row(formRecetteNegative.preparationRecetteNegative) }}
 
     <div class="row">
         <div class="col">
@@ -49,4 +59,8 @@
     <br>
 
     {{ form_end(formRecetteNegative) }}
+{% endblock %}
+
+{% block javascripts %}
+<script src=" {{asset("js/gestionUpload.js")}} " defer ></script>
 {% endblock %}

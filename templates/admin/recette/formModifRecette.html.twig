@@ -7,20 +7,30 @@
 
     {{ form_start(formRecette,{'attr':{'novalidate':'novalidate'}}) }}
 
-    {{ form_row(formRecette.nomRecette) }}
-
-    {{ form_row(formRecette.imageRecette) }}
-
     <div class="row">
-        <div class="col">{{form_row(formRecette.personneRecette)}}</div>
-        <div class="col">{{form_row(formRecette.preparationdureeRecette)}}</div>
-        <div class="col">{{form_row(formRecette.cuissonRecette)}}</div>
-        <div class="col">{{form_row(formRecette.typeRecette)}}</div>
+        <div class="col-8">
+            {{ form_row(formRecette.nomRecette) }}
+            <div class="row">
+                <div class="col">{{form_row(formRecette.personneRecette)}}</div>
+                <div class="col">{{form_row(formRecette.typeRecette)}}</div>
+            </div>
+            <div class="row">
+                <div class="col">{{form_row(formRecette.preparationdureeRecette)}}</div>
+                <div class="col">{{form_row(formRecette.cuissonRecette)}}</div>
+            </div>
+            {{ form_row(formRecette.ingredientRecette) }}
+            {{ form_row(formRecette.preparationRecette) }}
+        </div>    
+        <div class="col-4">
+        <div>
+            <img src="{{ asset("image/imagevierge.png") }}" id="imageAffichee" alt="Card image" class="rounded mx-auto d-block img-thumbnail">
+        </div>
+        <div>
+        {{ form_row(formRecette.imageFile, {'id':'imageFile'}) }}
+        <a class="btn btn-primary d-block center" id="chargeImage"><i class="fas fa-upload"></i> Charger la recette</a>    
+        </div>
+        </div>
     </div>
-
-    {{ form_row(formRecette.ingredientRecette) }}
-    
-    {{ form_row(formRecette.preparationRecette) }}
 
     <div class="row">
         <div class="col"><a href="{{ path('admin_recettes') }}" class="btn btn-warning btn-block">Annuler</a></div>
@@ -30,4 +40,8 @@
 
     {{ form_end(formRecette) }}
 
+{% endblock %}
+
+{% block javascripts %}
+<script src=" {{asset("js/gestionUpload.js")}} " defer ></script>
 {% endblock %}

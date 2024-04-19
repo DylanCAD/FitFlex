@@ -37,6 +37,24 @@ class RecetteNegativeController extends AbstractController
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid())
         {
+            // On récupère l'image sélectionnée
+            $fichierImage = $form->get('imageFile')->getData();
+            if ($fichierImage != null) {
+                // On récupère le nom de l'image existante
+                $ancienNomImage = $recetteNegative->getImageRecetteNegative();
+                // On construit le chemin complet du fichier existant
+                $cheminImageExistante = $this->getParameter('imagesRecettenegativesDestination') . $ancienNomImage;
+                // On vérifie si l'image existante est un fichier
+                if (file_exists($cheminImageExistante) && is_file($cheminImageExistante)) {
+                    // On supprime l'ancien fichier
+                    unlink($cheminImageExistante);
+                }
+                // On crée le nom du nouveau fichier
+                $nouveauNomImage = 'image/recettenegatives/' . md5(uniqid()) . "." . $fichierImage->guessExtension();
+                // On déplace le fichier chargé dans le dossier public
+                $fichierImage->move($this->getParameter('imagesRecettenegativesDestination'), $nouveauNomImage);
+                $recetteNegative->setImageRecetteNegative($nouveauNomImage);
+            }
             $manager->persist($recetteNegative);
             $manager->flush();
             $this->addFlash("success", "La recette a bien été ajoutée");
@@ -63,7 +81,26 @@ class RecetteNegativeController extends AbstractController
         $form = $this->createForm(RecetteNegativeType::class, $recetteNegative);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) 
+        {   
+            // On récupère l'image sélectionnée
+            $fichierImage = $form->get('imageFile')->getData();
+            if ($fichierImage != null) {
+                // On récupère le nom de l'image existante
+                $ancienNomImage = $recetteNegative->getImageRecetteNegative();
+                // On construit le chemin complet du fichier existant
+                $cheminImageExistante = $this->getParameter('imagesRecettenegativesDestination') . $ancienNomImage;
+                // On vérifie si l'image existante est un fichier
+                if (file_exists($cheminImageExistante) && is_file($cheminImageExistante)) {
+                    // On supprime l'ancien fichier
+                    unlink($cheminImageExistante);
+                }
+                // On crée le nom du nouveau fichier
+                $nouveauNomImage = 'image/recettenegatives/' . md5(uniqid()) . "." . $fichierImage->guessExtension();
+                // On déplace le fichier chargé dans le dossier public
+                $fichierImage->move($this->getParameter('imagesRecettenegativesDestination'), $nouveauNomImage);
+                $recetteNegative->setImageRecetteNegative($nouveauNomImage);
+            }
             // Vérifier si le champ nomRecette n'est pas vide
             if (!$recetteNegative->getNomRecetteNegative()) {
                 $this->addFlash('error', 'Le nom de la recette est obligatoire.');

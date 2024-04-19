@@ -48,6 +48,9 @@ class TypeExerciceMusculation
 
     /**
      * @ORM\ManyToMany(targetEntity=ExerciceMusculation::class, mappedBy="exercices")
+     * @Assert\Count(
+     *      min = "1",
+     *      minMessage = "Vous devez sélectionner au moins un groupe musculaire.")
      */
     private $exerciceMusculations;
 

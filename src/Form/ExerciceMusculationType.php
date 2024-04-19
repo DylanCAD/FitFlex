@@ -7,7 +7,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
@@ -21,13 +23,19 @@ class ExerciceMusculationType extends AbstractType
                 'attr'=>[
                     "placeholder"=>"Saisir le nom du groupe musculaire",
                 ],
-           ])            
-            ->add('imageExerciceMusculation', TextType::class,[
-                'label'=> "Image du groupe musculaire",
+            ])            
+            ->add('imageFile', FileType::class,[
+                'mapped'=>false,
+                'required'=>false,
+                'label'=>"Charger le groupe musculaire",
                 'attr'=>[
-                    "placeholder"=>"Saisir l'image du groupe musculaire"
+                    'accept'=>".jpg,.png,.gif"
+                ],
+                'row_attr'=>[
+                    'class'=>"d-none"
                 ]
             ])
+            ->add('imageExerciceMusculation', HiddenType::class)
             ;
     }
 

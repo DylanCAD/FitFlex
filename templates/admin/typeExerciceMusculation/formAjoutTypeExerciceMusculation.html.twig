@@ -1,6 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
+
+{% block stylesheets %}
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
+
     {% if exerciceMusculation.id is defined %}
         Modification d'un exercice de musculation
     {% else %}
@@ -23,13 +28,24 @@
         {{ form_row(formTypeExerciceMusculation.id, {'attr': {'hidden': 'hidden'}}) }}
     {% endif %}
     
-    {{ form_row(formTypeExerciceMusculation.nomTypeExerciceMusculation) }}
-
-    {{ form_row(formTypeExerciceMusculation.imageTypeExerciceMusculation) }}
-
-    {{ form_row(formTypeExerciceMusculation.titreTypeExerciceMusculation) }}
-
-    {{ form_row(formTypeExerciceMusculation.descriptionTypeExerciceMusculation) }}
+    <div class="row">
+        <div class="col-8">
+            {{ form_row(formTypeExerciceMusculation.nomTypeExerciceMusculation) }}
+            {{ form_row(formTypeExerciceMusculation.descriptionTypeExerciceMusculation) }}
+            {{ form_row(formTypeExerciceMusculation.titreTypeExerciceMusculation) }}
+            {{ form_row(formTypeExerciceMusculation.exerciceMusculations) }}
+        </div>    
+        <div class="col-4">
+        <div>
+            <img src="{{ asset("image/imagevierge.png") }}" id="imageAffichee" alt="Card image" class="rounded mx-auto d-block img-thumbnail">
+        </div>
+        <div>
+        {{ form_row(formTypeExerciceMusculation.imageFile, {'id':'imageFile'}) }}
+        <a class="btn btn-primary d-block center" id="chargeImage"><i class="fas fa-upload"></i> Charger l'exercice de musculation</a>    
+        </div>
+            {{ form_errors(formTypeExerciceMusculation.imageFile) }} {# Pour afficher les erreurs #}
+        </div>
+    </div>
 
     <div class="row">
         <div class="col">
@@ -42,4 +58,15 @@
     <br>
 
     {{ form_end(formTypeExerciceMusculation) }}
+{% endblock %}
+
+{% block javascripts %}
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script> 
+$(document).ready(function() {
+  $('.selectExercices').select2();
+});
+</script>
+
+<script src=" {{asset("js/gestionUpload.js")}} " defer ></script>
 {% endblock %}

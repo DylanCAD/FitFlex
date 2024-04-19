@@ -37,6 +37,24 @@ class EquipementController extends AbstractController
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid())
         {
+            // On récupère l'image sélectionnée
+            $fichierImage = $form->get('imageFile')->getData();
+            if ($fichierImage != null) {
+                // On récupère le nom de l'image existante
+                $ancienNomImage = $equipement->getImageEquipement();
+                // On construit le chemin complet du fichier existant
+                $cheminImageExistante = $this->getParameter('imagesEquipementsDestination') . $ancienNomImage;
+                // On vérifie si l'image existante est un fichier
+                if (file_exists($cheminImageExistante) && is_file($cheminImageExistante)) {
+                    // On supprime l'ancien fichier
+                    unlink($cheminImageExistante);
+                }
+                // On crée le nom du nouveau fichier
+                $nouveauNomImage = 'image/equipement/' . md5(uniqid()) . "." . $fichierImage->guessExtension();
+                // On déplace le fichier chargé dans le dossier public
+                $fichierImage->move($this->getParameter('imagesEquipementsDestination'), $nouveauNomImage);
+                $equipement->setImageEquipement($nouveauNomImage);
+            }
             $manager->persist($equipement);
             $manager->flush();
             $this->addFlash("success", "L'equipement a bien été ajouté");
@@ -63,7 +81,26 @@ class EquipementController extends AbstractController
         $form = $this->createForm(EquipementType::class, $equipement);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) 
+        {
+            // On récupère l'image sélectionnée
+            $fichierImage = $form->get('imageFile')->getData();
+            if ($fichierImage != null) {
+                // On récupère le nom de l'image existante
+                $ancienNomImage = $equipement->getImageEquipement();
+                // On construit le chemin complet du fichier existant
+                $cheminImageExistante = $this->getParameter('imagesEquipementsDestination') . $ancienNomImage;
+                // On vérifie si l'image existante est un fichier
+                if (file_exists($cheminImageExistante) && is_file($cheminImageExistante)) {
+                    // On supprime l'ancien fichier
+                    unlink($cheminImageExistante);
+                }
+                // On crée le nom du nouveau fichier
+                $nouveauNomImage = 'image/equipement/' . md5(uniqid()) . "." . $fichierImage->guessExtension();
+                // On déplace le fichier chargé dans le dossier public
+                $fichierImage->move($this->getParameter('imagesEquipementsDestination'), $nouveauNomImage);
+                $equipement->setImageEquipement($nouveauNomImage);
+            }
             // Vérifier si le champ nomEquipement n'est pas vide
             if (!$equipement->getNomEquipement()) {
                 $this->addFlash('error', 'Le nom de l\'équipement est obligatoire.');

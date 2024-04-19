@@ -7,9 +7,20 @@
 
     {{ form_start(formExerciceMusculation,{'attr':{'novalidate':'novalidate'}}) }}
 
-    {{ form_row(formExerciceMusculation.nomExerciceMusculation) }}
-
-    {{ form_row(formExerciceMusculation.imageExerciceMusculation) }}
+    <div class="row">
+        <div class="col-8">
+            {{ form_row(formExerciceMusculation.nomExerciceMusculation) }}
+        </div>    
+        <div class="col-4">
+        <div>
+            <img src="{{ asset("image/imagevierge.png") }}" id="imageAffichee" alt="Card image" class="rounded mx-auto d-block img-thumbnail">
+        </div>
+        <div>
+        {{ form_row(formExerciceMusculation.imageFile, {'id':'imageFile'}) }}
+        <a class="btn btn-primary d-block center" id="chargeImage"><i class="fas fa-upload"></i> Charger le groupe musculaire</a>    
+        </div>
+        </div>
+    </div>
 
     <div class="row">
         <div class="col"><a href="{{ path('admin_exerciceMusculations') }}" class="btn btn-warning btn-block">Annuler</a></div>
@@ -19,4 +30,8 @@
 
     {{ form_end(formExerciceMusculation) }}
 
+{% endblock %}
+
+{% block javascripts %}
+<script src=" {{asset("js/gestionUpload.js")}} " defer ></script>
 {% endblock %}

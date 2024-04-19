@@ -37,6 +37,24 @@ class TypeExerciceMusculationController extends AbstractController
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid())
         {
+            // On récupère l'image sélectionnée
+            $fichierImage = $form->get('imageFile')->getData();
+            if ($fichierImage != null) {
+                // On récupère le nom de l'image existante
+                $ancienNomImage = $typeExerciceMusculation->getImageTypeExerciceMusculation();
+                // On construit le chemin complet du fichier existant
+                $cheminImageExistante = $this->getParameter('imagesTypeExercicemusculationsDestination') . $ancienNomImage;
+                // On vérifie si l'image existante est un fichier
+                if (file_exists($cheminImageExistante) && is_file($cheminImageExistante)) {
+                    // On supprime l'ancien fichier
+                    unlink($cheminImageExistante);
+                }
+                // On crée le nom du nouveau fichier
+                $nouveauNomImage = 'image/typeexercicemusculation/' . md5(uniqid()) . "." . $fichierImage->guessExtension();
+                // On déplace le fichier chargé dans le dossier public
+                $fichierImage->move($this->getParameter('imagesTypeExercicemusculationsDestination'), $nouveauNomImage);
+                $typeExerciceMusculation->setImageTypeExerciceMusculation($nouveauNomImage);
+            }
             $manager->persist($typeExerciceMusculation);
             $manager->flush();
             $this->addFlash("success", "L'exercice de musculation a bien été ajouté");
@@ -63,7 +81,26 @@ class TypeExerciceMusculationController extends AbstractController
         $form = $this->createForm(TypeExerciceMusculationType::class, $typeExerciceMusculation);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) 
+        {
+            // On récupère l'image sélectionnée
+            $fichierImage = $form->get('imageFile')->getData();
+            if ($fichierImage != null) {
+                // On récupère le nom de l'image existante
+                $ancienNomImage = $typeExerciceMusculation->getImageTypeExerciceMusculation();
+                // On construit le chemin complet du fichier existant
+                $cheminImageExistante = $this->getParameter('imagesTypeExercicemusculationsDestination') . $ancienNomImage;
+                // On vérifie si l'image existante est un fichier
+                if (file_exists($cheminImageExistante) && is_file($cheminImageExistante)) {
+                    // On supprime l'ancien fichier
+                    unlink($cheminImageExistante);
+                }
+                // On crée le nom du nouveau fichier
+                $nouveauNomImage = 'image/typeexercicemusculation/' . md5(uniqid()) . "." . $fichierImage->guessExtension();
+                // On déplace le fichier chargé dans le dossier public
+                $fichierImage->move($this->getParameter('imagesTypeExercicemusculationsDestination'), $nouveauNomImage);
+                $typeExerciceMusculation->setImageTypeExerciceMusculation($nouveauNomImage);
+            }
             // Vérifier si le champ nomExerciceMusculation n'est pas vide
             if (!$typeExerciceMusculation->getNomTypeExerciceMusculation()) {
                 $this->addFlash('error', 'Le nom de l exercice de musculation est obligatoire.');

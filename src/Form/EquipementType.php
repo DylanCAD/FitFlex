@@ -7,7 +7,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class EquipementType extends AbstractType
@@ -27,12 +29,18 @@ class EquipementType extends AbstractType
                     "placeholder"=>"Saisir la description de l'equipement"
                 ]
             ])
-            ->add('imageEquipement', TextType::class,[
-                'label'=> "Image de l'equipement",
+            ->add('imageFile', FileType::class,[
+                'mapped'=>false,
+                'required'=>false,
+                'label'=>"Charger l'équipement",
                 'attr'=>[
-                    "placeholder"=>"Saisir l'image de l'equipement"
+                    'accept'=>".jpg,.png,.gif"
+                ],
+                'row_attr'=>[
+                    'class'=>"d-none"
                 ]
             ])
+            ->add('imageEquipement', HiddenType::class)
             ->add('lienEquipement', UrlType::class,[
                 'label'=> "Lien de l'equipement",
                 'attr'=>[

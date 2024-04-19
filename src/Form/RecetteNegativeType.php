@@ -7,7 +7,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
@@ -21,13 +23,19 @@ class RecetteNegativeType extends AbstractType
                 'attr'=>[
                     "placeholder"=>"Saisir le nom de la recette",
                 ],
-           ])            
-            ->add('imageRecetteNegative', TextType::class,[
-                'label'=> "Image de la recette",
+           ])
+            ->add('imageFile', FileType::class,[
+                'mapped'=>false,
+                'required'=>false,
+                'label'=>"Charger la recette",
                 'attr'=>[
-                    "placeholder"=>"Saisir l'image de la recette"
+                    'accept'=>".jpg,.png,.gif"
+                ],
+                'row_attr'=>[
+                    'class'=>"d-none"
                 ]
             ])
+            ->add('imageRecetteNegative', HiddenType::class)
             ->add('personneRecetteNegative', TextType::class,[
                 'label'=> "Nombre de personne",
                 'attr'=>[

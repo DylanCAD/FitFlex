@@ -4,16 +4,25 @@
 
 {% block body %}
     <h1 class="text-center pt-2 ">Modification d'un equipement</h1>
-
+    
     {{ form_start(formEquipement,{'attr':{'novalidate':'novalidate'}}) }}
 
-    {{ form_row(formEquipement.nomEquipement) }}
-
-    {{ form_row(formEquipement.imageEquipement) }}
-
-    {{ form_row(formEquipement.descriptionEquipement) }}
-
-    {{ form_row(formEquipement.lienEquipement) }}
+    <div class="row">
+        <div class="col-8">
+            {{ form_row(formEquipement.nomEquipement) }}
+            {{ form_row(formEquipement.lienEquipement) }}
+            {{ form_row(formEquipement.descriptionEquipement) }}
+        </div>    
+        <div class="col-4">
+        <div>
+            <img src="{{ asset("image/imagevierge.png") }}" id="imageAffichee" alt="Card image" class="rounded mx-auto d-block img-thumbnail">
+        </div>
+        <div>
+        {{ form_row(formEquipement.imageFile, {'id':'imageFile'}) }}
+        <a class="btn btn-primary d-block center" id="chargeImage"><i class="fas fa-upload"></i> Charger l'équipement</a>    
+        </div>
+        </div>
+    </div>
 
     <div class="row">
         <div class="col"><a href="{{ path('admin_equipements') }}" class="btn btn-warning btn-block">Annuler</a></div>
@@ -23,4 +32,8 @@
 
     {{ form_end(formEquipement) }}
 
+{% endblock %}
+
+{% block javascripts %}
+<script src=" {{asset("js/gestionUpload.js")}} " defer ></script>
 {% endblock %}

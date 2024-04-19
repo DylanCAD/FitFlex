@@ -27,7 +27,11 @@
                         <td class="col-2" style="color: black">{{ leTypeExerciceMusculation.nomTypeExerciceMusculation }}</td>
                         <td class="col-7">
                             <p class="d-flex flex-row" style="color: black">
-                                <span class="align-self-center badge badge-success" style="color: black">{{ leTypeExerciceMusculation.titreTypeExerciceMusculation }}</span>
+                            <span class="align-self-center badge badge-success" style="color: black">{{ leTypeExerciceMusculation.titreTypeExerciceMusculation }}</span>
+                            <span style="width: 10px;"></span> <!-- Ajoute un espace de 10 pixels -->
+                            {% for leExerciceMusculation in leTypeExerciceMusculation.exerciceMusculations %}
+                                <span class="align-self-center badge badge bg-info" style="color: black">{{ leExerciceMusculation.nomExerciceMusculation }}</span>
+                            {% endfor %}
                             </p>
                             <p style="color: black">
                                 {{ leTypeExerciceMusculation.descriptionTypeExerciceMusculation|slice(0,100)|raw }} ...

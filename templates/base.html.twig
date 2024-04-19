@@ -63,17 +63,17 @@
 
    <ul class="navbar-nav my-auto">
    {% if app.user %}
-       <li class="nav-item">
-        <img class="photoProfil" src=" {{ app.user.getAvatarUser()}} " alt="photo de {{app.user.getFullName()}}">
-    </li>
+        <li class="nav-item">
+            <img class="photoProfil" src="{{ asset(app.user.getAvatarUser()) }}" alt="photo de {{ app.user.getFullName() }}">
+        </li>
         <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{app.user.getFullName()}}</a>
-        <div class="dropdown-menu dropdown-menu-right">
-            <a class="dropdown-item" href=" {{path('user_profile')}} ">Mon profil</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href=" {{path('app_logout')}} ">Se déconnecter</a>
-        </div>
-    </li>
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{app.user.getFullName()}}</a>
+            <div class="dropdown-menu dropdown-menu-right">
+                <a class="dropdown-item" href=" {{path('user_profile')}} ">Mon profil</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href=" {{path('app_logout')}} ">Se déconnecter</a>
+            </div>
+        </li>
    
    {% else %}
     <li class="nav-item mr-3">
