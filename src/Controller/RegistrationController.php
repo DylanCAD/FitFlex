@@ -28,7 +28,26 @@ class RegistrationController extends AbstractController
         $form = $this->createForm(UserRegistrationFormType::class, $user);
         $form->handleRequest($request);
     
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) 
+        {
+            // On récupère l'image sélectionnée
+            $fichierImage = $form->get('imageFile')->getData();
+            if ($fichierImage != null) {
+                // On récupère le nom de l'image existante
+                $ancienNomImage = $user->getAvatarUser();
+                // On construit le chemin complet du fichier existant
+                $cheminImageExistante = $this->getParameter('imagesUsersDestination') . $ancienNomImage;
+                // On vérifie si l'image existante est un fichier
+                if (file_exists($cheminImageExistante) && is_file($cheminImageExistante)) {
+                    // On supprime l'ancien fichier
+                    unlink($cheminImageExistante);
+                }
+                // On crée le nom du nouveau fichier
+                $nouveauNomImage = 'image/photoProfile/' . md5(uniqid()) . "." . $fichierImage->guessExtension();
+                // On déplace le fichier chargé dans le dossier public
+                $fichierImage->move($this->getParameter('imagesUsersDestination'), $nouveauNomImage);
+                $user->setAvatarUser($nouveauNomImage);
+            }
             // Traitement du formulaire lorsque celui-ci est soumis et valide
     
             // Hashage du mot de passe

@@ -9,6 +9,7 @@ parameters:
     imagesTypeExercicemusculationsDestination: '%kernel.project_dir%/public/image/typeexercicemusculation/'
     imagesRecettesDestination: '%kernel.project_dir%/public/image/recette/'
     imagesRecettenegativesDestination: '%kernel.project_dir%/public/image/recettenegatives/'
+    imagesUsersDestination: '%kernel.project_dir%/public/image/photoProfile/'
 
 services:
     # default configuration for services in *this* file

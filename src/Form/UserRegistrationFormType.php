@@ -4,13 +4,15 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
 class UserRegistrationFormType extends AbstractType
 {
@@ -25,9 +27,9 @@ class UserRegistrationFormType extends AbstractType
             ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'first_options' => ['label' => 'Mot de passe', 
+                'first_options' => ['label' => 'Mot de passe *', 
                 'attr'=>["placeholder"=>"Saisir votre mot de passe",],],
-                'second_options' => ['label' => 'Répéter le mot de passe',
+                'second_options' => ['label' => 'Répéter le mot de passe *',
                 'attr'=>["placeholder"=>"Saisir à nouveau votre mot de passe",],],
             ])
             ->add('nom_User', TextType::class,[               
@@ -49,13 +51,18 @@ class UserRegistrationFormType extends AbstractType
                     'Femme' => 'Femme',
                 ],
             ])            
-            ->add('avatar_User', TextType::class, [
-                'label'=> "Photo de profil",
-                'attr'=>[
-                    "placeholder"=>"Saisir votre photo de profil",
-                ],
-                'required' => false
+            ->add('imageFile', FileType::class,[
+                    'mapped'=>false,
+                    'required'=>false,
+                    'label'=>"Charger votre photo de profil",
+                    'attr'=>[
+                        'accept'=>".jpg,.png,.gif"
+                    ],
+                    'row_attr'=>[
+                        'class'=>"d-none"
+                    ]
                 ])
+            ->add('avatar_User', HiddenType::class)
             ->add('age_User', TextType::class, [
                 'label'=> "Âge",
                 'attr'=>[
