@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajout performance{% endblock %}
+
+{% block stylesheets %}
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+<br>
+<div class="container border p-4">
+        <h1 class="text-center pt-2 ">Ajout d'une performance</h1>
+        
+        {{ form_start(formPerformance,{'attr':{'novalidate':'novalidate'}}) }}
+
+        <div class="row justify-content-center">
+            <div class="col-8">
+                {{ form_row(formPerformance.serie) }}
+                {{ form_row(formPerformance.repetitions) }}
+                {{ form_row(formPerformance.poidsUtilise) }}
+                {{ form_row(formPerformance.commentairesForme) }}
+                {{ form_row(formPerformance.exercice) }}
+            </div>    
+        </div>
+        
+        <div class="row">
+            <div class="col">
+                <a href="{{ path('performance_afficher') }}" class="btn btn-warning btn-block">Annuler</a>
+            </div>
+            <div class="col">
+                <input type="submit" class="btn btn-success btn-block" value="{% if performance.id is defined %}Valider les modifications{% else %}Valider{% endif %}">
+            </div>
+        </div>
+        <br>
+
+        {{ form_end(formPerformance) }}
+</div>
+{% endblock %}

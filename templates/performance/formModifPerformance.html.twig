@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification performance{% endblock %}
+
+{% block body %}
+<br>
+<div class="container border p-4">
+
+    <h1 class="text-center pt-2 ">Modification d'une performance</h1>
+    
+    {{ form_start(formPerformance,{'attr':{'novalidate':'novalidate'}}) }}
+
+    <div class="row justify-content-center">
+        <div class="col-8">
+            {{ form_row(formPerformance.serie) }}
+            {{ form_row(formPerformance.repetitions) }}
+            {{ form_row(formPerformance.poidsUtilise) }}
+            {{ form_row(formPerformance.commentairesForme) }}
+            {{ form_row(formPerformance.exercice) }}
+        </div>    
+    </div>
+
+    <div class="row">
+        <div class="col"><a href="{{ path('performance_afficher') }}" class="btn btn-warning btn-block">Annuler</a></div>
+        <div class="col"><input type="submit" class="btn btn-success btn-block" value="Valider les modifications"></div>
+    </div>
+    <br>
+
+    {{ form_end(formPerformance) }}
+
+</div>
+{% endblock %}

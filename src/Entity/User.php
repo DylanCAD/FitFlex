@@ -95,9 +95,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $favoriteExercises;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Performance::class, mappedBy="user")
+     */
+    private $performances;
+
     public function __construct()
     {
         $this->favoriteExercises = new ArrayCollection();
+        $this->performances = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -360,6 +366,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($favoriteExercise->getUser() === $this) {
                 $favoriteExercise->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Performance>
+     */
+    public function getPerformances(): Collection
+    {
+        return $this->performances;
+    }
+
+    public function addPerformance(Performance $performance): self
+    {
+        if (!$this->performances->contains($performance)) {
+            $this->performances[] = $performance;
+            $performance->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePerformance(Performance $performance): self
+    {
+        if ($this->performances->removeElement($performance)) {
+            // set the owning side to null (unless already changed)
+            if ($performance->getUser() === $this) {
+                $performance->setUser(null);
             }
         }
 

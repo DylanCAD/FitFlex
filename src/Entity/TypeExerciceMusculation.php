@@ -64,10 +64,16 @@ class TypeExerciceMusculation
      */
     private $favoriteExercises;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Performance::class, mappedBy="exercice")
+     */
+    private $performances;
+
     public function __construct()
     {
         $this->exerciceMusculations = new ArrayCollection();
         $this->favoriteExercises = new ArrayCollection();
+        $this->performances = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -193,6 +199,36 @@ class TypeExerciceMusculation
             // set the owning side to null (unless already changed)
             if ($favoriteExercise->getTypeExerciceMusculation() === $this) {
                 $favoriteExercise->setTypeExerciceMusculation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Performance>
+     */
+    public function getPerformances(): Collection
+    {
+        return $this->performances;
+    }
+
+    public function addPerformance(Performance $performance): self
+    {
+        if (!$this->performances->contains($performance)) {
+            $this->performances[] = $performance;
+            $performance->setExercice($this);
+        }
+
+        return $this;
+    }
+
+    public function removePerformance(Performance $performance): self
+    {
+        if ($this->performances->removeElement($performance)) {
+            // set the owning side to null (unless already changed)
+            if ($performance->getExercice() === $this) {
+                $performance->setExercice(null);
             }
         }
 

@@ -1,11 +1,76 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Performance{% endblock %}
+{% block title %}Détails de la performance{% endblock %}
 
 {% block body %}
-<br>
+
 <div class="container position-relative text-center animate__animated animate__zoomIn">
     <img src="{{ asset('image/performance/performanceBanniere.jpg')}}" alt="Image accueil" class="img-fluid mx-auto">
-    <h2 class="texteimg">Performance</h2>
+    <h2 class="texteimg">Détails des performances</h2>
 </div>
+<p class="pt-2 text-center">Le journal de performance est votre outil pour documenter et suivre vos progrès dans votre parcours de remise en forme.</p>
+<p class="pt-2 text-center">Lorsque vous effectuez un nouvel exercice, utilisez le formulaire d'ajout pour enregistrer vos performances. Si vous constatez une amélioration dans vos performances, utilisez le formulaire de modification.</p>
+
+<a href="{{ path('performance_ajout') }}" class="btn btn-success" style="color: black">Ajouter une performance</a>
+<hr>
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col-2">Groupe Musculaire</th>
+                <th scope="col-3">Exercice</th>
+                <th scope="col-5">Détail</th>
+                <th scope="col-2">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for laPerformance in lesPerformances %}
+            <tr class="table-light">
+                <td class="col-2" style="color: black">
+                    {% for exercice in laPerformance.exercice.exerciceMusculations %}
+                    {{ exercice.nomExerciceMusculation }}
+                    {% endfor %}
+                </td>
+                <td class="col-3" style="color: black">
+                    <img class="imgliste mx-auto d-block" style="height: auto; width: 90px; display: block;" src="{{ asset(laPerformance.exercice.imageTypeExerciceMusculation) }}" alt="Card image">
+                    {{laPerformance.exercice.nomTypeExerciceMusculation}}
+                </td>
+                <td class="col-5">
+                    <p class="d-flex flex-row" style="color: black">
+                        <span class="align-self-center badge badge-success" style="color: black">Nombre de répétition : {{ laPerformance.repetitions }}</span>
+                        <span style="width: 10px;"></span> <!-- Ajoute un espace de 10 pixels -->
+                        <span class="align-self-center badge badge-success" style="color: black">Nombre de série : {{ laPerformance.serie }}</span>
+                        <span style="width: 10px;"></span> <!-- Ajoute un espace de 10 pixels -->
+                        <span class="align-self-center badge badge bg-info" style="color: black">Poids utiliser : {{ laPerformance.poidsUtilise }}</span>
+                    </p>
+                    <p style="color: black">
+                        Commentaire sur votre forme : {{ laPerformance.commentairesForme }}
+                    </p>
+                </td>
+
+                <td class="col-2">
+                    <div class="d-flex flex-row">
+                        <a href="{{ path('performance_modif', {'id': laPerformance.id }) }}" class="btn btn-primary"><i class="fas fa-pen"></i></a>
+                        &nbsp;&nbsp;
+
+                        <a class="btn btn-danger"
+                           data-toggle="modal" 
+                           data-target="#modalSimple" 
+                           data-titre="Suppression de la performance"
+                           data-message="Êtes-vous sûr de vouloir supprimer cette performance ?"
+                           data-libelleBouton = "Supprimer la performance"
+                           data-lien="{{ path('performance_suppression', {'id': laPerformance.id}) }}"
+                        ><i class="far fa-trash-alt"></i></a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+  {% include "include/_modale.html.twig" %}
 {% endblock %}
