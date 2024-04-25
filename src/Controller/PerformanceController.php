@@ -21,8 +21,21 @@ class PerformanceController extends AbstractController
     public function listePerformances(PerformanceRepository $repo): Response
     {
         $performances=$repo->findAll();
+        $graphData = [];
+        foreach ($performances as $performance) {
+            $graphData[] = [
+                'createdAt' => $performance->getCreatedAt()->format('Y-m-d H:i:s'),
+                'updatedAt' => $performance->getUpdatedAt() ? $performance->getUpdatedAt()->format('Y-m-d H:i:s') : null,
+                'poidsUtilise' => $performance->getPoidsUtilise(),
+                'serie' => $performance->getSerie(),
+                'repetitions' => $performance->getRepetitions(),
+                'exercice' => $performance->getExercice()->getNomTypeExerciceMusculation()
+            ];
+        }
+    
         return $this->render('performance/listePerformances.html.twig', [
-            'lesPerformances' => $performances
+            'lesPerformances' => $performances,
+            'graphData' => json_encode($graphData) // Passer les données JSON à la vue
         ]);
     }
 

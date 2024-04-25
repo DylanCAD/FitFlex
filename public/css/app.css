@@ -109,10 +109,20 @@
     color: #000;
 }
 
+/* footer */
 .logo-footer {
-    max-width: 70px;
+    max-width: 100px;
     height: auto;
     border-radius: 10%;
+}
+
+.custom-link {
+    color: black; /* Couleur de texte noire par défaut */
+    transition: color 0.3s; /* Transition pour le changement de couleur */
+}
+
+.custom-link:hover {
+    color: darkgray; /* Couleur de texte gris lorsqu'il est survolé */
 }
 
 /* style du lien de la page equipements */

@@ -21,20 +21,20 @@
 
   <div class="collapse navbar-collapse" id="navbarColor01">
     <ul class="navbar-nav mr-auto">
-    <li class="nav-item">
-        <a class="nav-link" href="{{path('exercicemusculations')}}">Exercices de fitness</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href=" {{path('equipements')}} ">Equipements de fitness</a>
-    </li>
-    <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Recettes de nutrition</a>
-        <div class="dropdown-menu">
-            <a class="dropdown-item" href=" {{path('recettes')}} ">Recettes pour prendre du poids</a>
-            <a class="dropdown-item" href=" {{path('recettenegatives')}} ">Recettes pour perdre du poids</a>
-        </div>
-    </li>
-        
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('exercicemusculations') }}">Exercices de fitness</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('equipements') }}">Equipements de fitness</a>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Recettes de nutrition</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="{{ path('recettes') }}">Recettes pour prendre du poids</a>
+                <a class="dropdown-item" href="{{ path('recettenegatives') }}">Recettes pour perdre du poids</a>
+            </div>
+        </li>
+
         {% if app.user %}        
         <li class="nav-item">
             <a class="nav-link" href=" {{path('favorite_exercises')}} ">Exercices de fitness favoris</a>
@@ -108,32 +108,24 @@
 <footer class="footer">
     <div class="container">
         <div class="row">
-            <div class="col-md-4">
-                <h5>À propos de Apollift</h5>
-                <p>Découvrez notre plateforme dédiée au fitness et à la santé. Trouvez des conseils, des exercices et des recettes pour atteindre vos objectifs.</p>
+            <div class="col-md-9">
+                <h4>À propos de Apollift</h4>
+                <p>Apollift est plus qu'une application, c'est une expérience de bien-être tout-en-un. Prendre soin de ta santé physique et mentale est essentiel pour avoir une vie épanouie, et nous sommes là pour te soutenir à chaque étape. Trouvez des conseils, des exercices et des recettes pour atteindre vos objectifs.</p>
             </div>
-            <div class="col-md-2 col-sm-6">
-                <h5>Liens utiles</h5>
-                <ul class="list-unstyled">
-                    <li><a href="#">Mentions légales</a></li>
-                    <li><a href="#">CGU</a></li>
-                    <li><a href="#">Plan du site</a></li>
-                </ul>
-            </div>
-            <div class="col-md-2 col-sm-6">
-                <h5>Vie privée</h5>
-                <ul class="list-unstyled">
-                    <li><a href="#">Données personnelles</a></li>
-                    <li><a href="#">Informations cookie</a></li>
-                </ul>
-            </div>
-            <div class="col-md-4 col-sm-12 text-md-right">
-                <ul class="list-unstyled mb-0">
-                    <li class="mb-2"><a href="#">Politique de confidentialité de Apollift</a></li>
-                </ul>
+            <div class="col-md-3 col-sm-12 text-md-right">
                 <a href="{{ path('accueil') }}">
                     <img src="{{ asset('image/logo.jpg') }}" alt="Logo Apollift" class="logo-footer">
                 </a>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 offset-md-3 col-sm-6 text-md-right">
+                <a href="{{ path('footer_conditions_generales') }}" class="mr-3 custom-link">Conditions générales d'utilisation</a>
+                <a href="{{ path('footer_politique_cookies') }}" class="mr-3 custom-link">Politique de cookies</a>
+                <a href="{{ path('footer_politique_confidentialite') }}" class="custom-link">Politique de confidentialité</a>
             </div>
         </div>
     </div>

@@ -8,8 +8,7 @@
     <img src="{{ asset('image/performance/performanceBanniere.jpg')}}" alt="Image accueil" class="img-fluid mx-auto">
     <h2 class="texteimg">Détails des performances</h2>
 </div>
-<p class="pt-2 text-center">Le journal de performance est votre outil pour documenter et suivre vos progrès dans votre parcours de remise en forme.</p>
-<p class="pt-2 text-center">Lorsque vous effectuez un nouvel exercice, utilisez le formulaire d'ajout pour enregistrer vos performances. Si vous constatez une amélioration dans vos performances, utilisez le formulaire de modification.</p>
+<p class="pt-2 text-center">Le journal de performance est votre outil pour documenter et suivre vos progrès dans votre parcours de remise en forme. Lorsque vous effectuez un nouvel exercice, utilisez le formulaire 'Ajouter une performance' pour enregistrer vos performances.</p>
 
 <a href="{{ path('performance_ajout') }}" class="btn btn-success" style="color: black">Ajouter une performance</a>
 <hr>
@@ -41,10 +40,13 @@
                         <span style="width: 10px;"></span> <!-- Ajoute un espace de 10 pixels -->
                         <span class="align-self-center badge badge-success" style="color: black">Nombre de série : {{ laPerformance.serie }}</span>
                         <span style="width: 10px;"></span> <!-- Ajoute un espace de 10 pixels -->
-                        <span class="align-self-center badge badge bg-info" style="color: black">Poids utiliser : {{ laPerformance.poidsUtilise }}</span>
+                        <span class="align-self-center badge badge bg-info" style="color: black">Poids utiliser : {{ laPerformance.poidsUtilise }} kg</span>
                     </p>
                     <p style="color: black">
                         Commentaire sur votre forme : {{ laPerformance.commentairesForme }}
+                    </p>
+                    <p style="color: black">
+                        Date : {{ laPerformance.createdAt|date('d/m/Y H:i:s') }}
                     </p>
                 </td>
 
@@ -68,6 +70,123 @@
         </tbody>
     </table>
 </div>
+
+<div id="graph-container">
+    <canvas id="performance-chart" width="800" height="400"></canvas>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+<script>
+    var graphData = {{ graphData|raw }};
+    
+    // Tri des données par ordre croissant de item.exercice
+    graphData.sort((a, b) => (a.exercice > b.exercice) ? 1 : -1);
+    
+    const labels = graphData.map(item => item.exercice);
+    const barWeights = graphData.map(item => item.poidsUtilise);
+    const lineSeries = graphData.map(item => item.serie);
+    const lineRepetitions = graphData.map(item => item.repetitions);
+
+    // Fonction de hachage pour générer une couleur unique à partir du nom de l'exercice
+    function hashString(str) {
+        var hash = 0;
+        for (var i = 0; i < str.length; i++) {
+            hash = str.charCodeAt(i) + ((hash << 5) - hash);
+        }
+        var color = '#';
+        for (var j = 0; j < 3; j++) {
+            var value = (hash >> (j * 8)) & 0xFF;
+            color += ('00' + value.toString(16)).substr(-2);
+        }
+        return color;
+    }
+
+    var ctx = document.getElementById('performance-chart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Nombre de séries',
+                    data: lineSeries,
+                    type: 'line',
+                    borderColor: 'green',
+                    fill: false,
+                    borderWidth: 2
+                },
+                {
+                    label: 'Nombre de répétitions',
+                    data: lineRepetitions,
+                    type: 'line',
+                    borderColor: 'red',
+                    fill: false,
+                    borderWidth: 2
+                },
+                {
+                    label: 'Poids utilisé',
+                    data: barWeights,
+                    backgroundColor: labels.map(label => hashString(label)),
+                    borderColor: 'white', 
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {
+            // Fond du graphique en blanc
+            plugins: {
+                tooltip: {
+                    bodyFont: {
+                        weight: 'bold',
+                        color: 'white' // Changement de la couleur du texte du tooltip en blanc
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: 'white' // Changement de la couleur des ticks en blanc
+                    }
+                },
+                x: {
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    },
+                    ticks: {
+                        color: 'white' // Changement de la couleur des ticks en blanc
+                    }
+                }
+            },
+            // Couleur du fond et de l'écriture
+            maintainAspectRatio: false,
+            layout: {
+                padding: {
+                    left: 10,
+                    right: 10,
+                    top: 10,
+                    bottom: 10
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Graphique de performance',
+                    color: 'white', // Changement de la couleur du titre en blanc
+                    font: {
+                        size: 16,
+                        weight: 'bold'
+                    }
+                },
+                legend: {
+                    labels: {
+                        color: 'white' // Changement de la couleur de la légende en blanc
+                    }
+                }
+            }
+        }
+    });
+</script>
 
 {% endblock %}
 

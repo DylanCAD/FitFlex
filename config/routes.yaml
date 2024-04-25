@@ -15,3 +15,15 @@ admin_equipement_suppression:
 confirm_registration:
     path: '/confirm-registration/{token}'
     controller: App\Controller\RegistrationController::confirmRegistration
+
+footer_politique_confidentialite:
+    path: /footer/politique-confidentialite
+    controller: App\Controller\Footer\PolitiqueConfidentialiteController::politiqueConfidentialite
+
+footer_politique_cookies:
+    path: /footer/politique-cookies
+    controller: App\Controller\Footer\PolitiqueCookiesController::politiqueCookies
+
+footer_conditions_generales:
+    path: /footer/conditions-generales
+    controller: App\Controller\Footer\ConditionsGeneralesController::conditionsGenerales

@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Performance;
+use Doctrine\ORM\EntityRepository;
 use App\Entity\TypeExerciceMusculation;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -45,10 +46,14 @@ class PerformanceType extends AbstractType
                 ]
             ])
             ->add('exercice', EntityType::class, [ 
-                'label'=> "Exercice",
+                'label' => "Exercice",
                 'class' => TypeExerciceMusculation::class,
                 'choice_label' => 'nomTypeExerciceMusculation',
                 'required' => true,
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('e')
+                        ->orderBy('e.nomTypeExerciceMusculation', 'ASC');
+                },
             ])
             ;
     }

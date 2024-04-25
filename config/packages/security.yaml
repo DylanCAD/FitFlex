@@ -27,7 +27,8 @@ security:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/login$, roles: PUBLIC_ACCESS }
         - { path: ^/register$, roles: PUBLIC_ACCESS }
-        - { path: ^/, roles: ROLE_USER }
+        #- { path: ^/, roles: ROLE_USER }
+        #- { path: ^/accueil, roles: PUBLIC_ACCESS }
     
     role_hierarchy:
         ROLE_SUPERVISEUR: ROLE_USER
