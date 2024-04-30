@@ -153,3 +153,11 @@ body {
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
     color: black;
 }
+
+.white-text {
+    color: #04b789;
+}
+
+/*.container {
+    max-width: 1800px;
+}*/

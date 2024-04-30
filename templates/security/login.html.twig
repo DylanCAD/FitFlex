@@ -16,7 +16,7 @@
 {% block body %}
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-6">
+            <div class="col-md-8">
                 <div class="jumbotron mt-5">
                     <h1 class="text-center">Connexion</h1>
 
@@ -27,6 +27,11 @@
                     {% endif %}
 
                     <form method="post">
+                    <br>
+                        <div class="d-flex align-items-center justify-content-center flex-column">
+                            <p class="text-center">Vous n'avez pas de compte ? <a href="{{ path('app_register') }}">S'inscrire</a></p>
+                        </div>
+
                         <div class="form-group">
                             <label for="email">E-mail :</label>
                             <input type="email" id="email" name="_username" value="{{ last_email }}" class="form-control" required autofocus>
@@ -36,12 +41,15 @@
                             <label for="password">Mot de passe :</label>
                             <input type="password" id="password" name="_password" class="form-control" required>
                         </div>
+                        
+                        <div class="d-flex align-items-center justify-content-center flex-column">
+                            <p class="ml-auto"><a href="#">Mot de passe oublié ?</a></p>
+                        </div>
 
                         <div class="d-flex align-items-center justify-content-center flex-column">
-                            <input type="submit" class="btn btn-primary btn-lg" value="Connexion">
+                            <input type="submit" class="btn btn-primary btn-lg btn-block" value="Connexion">
                         </div>
                     </form>
-                        <p><a href="#">Mot de passe oublié</a></p>
                 </div>
             </div>
         </div>
