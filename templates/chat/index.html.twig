@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Chats{% endblock %}
+
+{% block body %}
+<br>
+    <div class="container position-relative text-center animate__animated animate__zoomIn">
+        <img src="{{ asset('image/message/BannerMessage.png')}}" alt="Image accueil" class="img-fluid mx-auto">
+        <h2 class="texteimg">Bienvenue sur notre espace de discussion</h2>
+    </div>
+    <p class="pt-2 text-center">Ici, vous pouvez communiquer librement avec les autres membres de notre communauté. Utilisez cet espace pour vous motiver, partager vos expériences, poser des questions et échanger des conseils. Nous encourageons un environnement respectueux et bienveillant. Merci de vous rappeler que vos paroles ont un impact sur les autres. Soyez positif et encourageant dans vos interactions. Ensemble, construisons un espace où chacun se sent en sécurité et soutenu dans sa démarche vers le bien-être physique et mental.</p>
+    <hr>
+
+    <div id="messages" class="mb-4 animate__animated animate__flipInX animate__delay-1s">
+        {% for message in messages %}
+            <div class="message {% if message.user == app.user %}self{% endif %} mb-3 p-3">
+                <div class="user-details d-flex align-items-center mb-2">
+                    <img class="photoProfil mr-2" src="{{ asset(message.user.getAvatarUser()) }}" alt="photo de {{ message.user.getFullName() }}">
+                    <h4 class="m-0">{{ message.user.getNomUser }} {{ message.user.getPrenomUser }} <span class="align-self-center badge badge-primary" style="color: black">{% if 'ROLE_ADMIN' in message.user.getRoles() %} Administrateur {% endif %}</span></h4>
+                </div>
+                <hr>
+                
+                <div class="message-content" style="max-height: 100px; overflow: auto;">
+                    <p class="m-0">{{ message.content }}</p>
+
+                    <p class="m-0 text-right">{{ message.createdAt|date('d/m/Y H:i:s') }}</p>
+                    
+                    <div class="d-flex justify-content-end align-items-center">
+                        <div>
+                            {% if message.user == app.user %}
+                                <a href="{{ path('message_modif', {'id': message.id }) }}" class="btn btn-primary mr-2"><i class="fas fa-pen"></i></a>
+                            {% endif %}
+                            {% if is_granted('ROLE_ADMIN') or message.user == app.user %}
+                                <a class="btn btn-danger" 
+                                    data-toggle="modal" 
+                                    data-target="#modalSimple"
+                                    data-titre="Suppression du message"
+                                    data-message="Êtes-vous sûr de vouloir supprimer le message : {{ message.content }}"
+                                    data-libelleBouton="Supprimer le message"
+                                    data-lien="{{ path('message_suppression', {'id': message.id}) }}"
+                                ><i class="far fa-trash-alt"></i></a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <hr>
+
+    <div class="message-envoyer animate__animated animate__flipInX animate__delay-1s">
+        <form action="{{ path('send_message') }}" method="post">
+            <input type="text" name="content" placeholder="Écrivez votre message">
+            &nbsp;&nbsp;&nbsp;<button type="submit">Envoyer</button>
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+  {% include "include/_modale.html.twig" %}
+{% endblock %}

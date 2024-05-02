@@ -45,6 +45,10 @@
     padding: 10px;
     border: 2px solid #385c7c;
     border-radius: 20px;
+    /* max-width: 90%;
+    width: auto;
+    font-size: 1.5rem;
+    line-height: 1.5; */
 }
 
 .card-text{
@@ -161,3 +165,69 @@ body {
 /*.container {
     max-width: 1800px;
 }*/
+
+/* page accueil */
+.image-container {
+    border: 2px solid #385c7c;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+/* page chats */
+.message {
+  margin-bottom: 20px;
+  background-color: #ffffff;
+  color:#000;
+  border-radius: 5%;
+}
+
+.user-details {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.photoProfilChats {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+input[type="text"] {
+  width: 70%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+button[type="submit"] {
+  padding: 10px 20px;
+  background-color: #385c7c;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #385c7c;
+}
+
+.message.self {
+    background-color: #8f989f;
+    color: #000;
+    border-radius: 5%;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    background-color: #385c7c;
+    margin: 20px 0;
+  }
+
+.message-envoyer {
+    text-align: center;
+}

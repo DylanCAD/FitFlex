@@ -48,8 +48,6 @@
         });
     }
 </script>
-
-  <hr>
     <br class="my-4">
 
 <div class="container position-relative text-center animate__animated animate__zoomIn">
@@ -110,48 +108,56 @@
       </div>
     </div>
 
-<div class="col-md-4">
-    <div class="image-container">
-        <div id="recettes-image" class="image-with-text">
-            <a href="#" id="toggle-dropdown">
-                <img src="{{ asset('image/imgBouton3.jpg')}}" alt="Image 3" class="img-fluid zoom-effect">
-                <div class="image-text">Voir les recettes</div>
-            </a>
+    <div class="col-md-4">
+        <div class="image-container">
+            <div id="recettes-image" class="image-with-text">
+                <a href="#" id="toggle-dropdown">
+                    <img src="{{ asset('image/imgBouton3.jpg')}}" alt="Image 3" class="img-fluid zoom-effect">
+                    <div class="image-text">Voir les recettes</div>
+                </a>
+            </div>
+            <div id="dropdown" style="display: none;">
+                <select id="choixRecettes" class="form-control">
+                    <option value="{{ path('recettes') }}">Recettes pour prendre du poids</option>
+                    <option value="{{ path('recettenegatives') }}">Recettes pour perdre du poids</option>
+                </select>
+                <button id="close-dropdown-btn" class="btn btn-secondary">Fermer</button>
+                <button id="redirect-btn" class="btn btn-primary">Go</button>
+            </div>
+            <div id="message" style="display: none;"></div>
         </div>
-        <div id="dropdown" style="display: none;">
-            <select id="choixRecettes" class="form-control">
-                <option value="{{ path('recettes') }}">Recettes pour prendre du poids</option>
-                <option value="{{ path('recettenegatives') }}">Recettes pour perdre du poids</option>
-            </select>
-            <button id="close-dropdown-btn" class="btn btn-secondary">Fermer</button>
-            <button id="redirect-btn" class="btn btn-primary">Go</button>
-        </div>
-        <div id="message" style="display: none;"></div>
     </div>
+
+    <script>
+        document.getElementById("toggle-dropdown").addEventListener("click", function(event) {
+            event.preventDefault();
+            document.getElementById("dropdown").style.display = "block";
+        });
+
+        document.getElementById("close-dropdown-btn").addEventListener("click", function() {
+            document.getElementById("dropdown").style.display = "none";
+        });
+
+        document.getElementById("redirect-btn").addEventListener("click", function() {
+            var choix = document.getElementById("choixRecettes");
+            if (!choix.value) {
+                document.getElementById('message').innerHTML = "<div class='alert alert-danger'>Veuillez sélectionner une option.</div>";
+            } else {
+                window.location.href = choix.value;
+            }
+        });
+    </script>
+
 </div>
-
-<script>
-    document.getElementById("toggle-dropdown").addEventListener("click", function(event) {
-        event.preventDefault();
-        document.getElementById("dropdown").style.display = "block";
-    });
-
-    document.getElementById("close-dropdown-btn").addEventListener("click", function() {
-        document.getElementById("dropdown").style.display = "none";
-    });
-
-    document.getElementById("redirect-btn").addEventListener("click", function() {
-        var choix = document.getElementById("choixRecettes");
-        if (!choix.value) {
-            document.getElementById('message').innerHTML = "<div class='alert alert-danger'>Veuillez sélectionner une option.</div>";
-        } else {
-            window.location.href = choix.value;
-        }
-    });
-</script>
-
 </div>
-</div>
+<hr>
+
+  <div class="container position-relative text-center animate__animated animate__zoomIn">
+    <img src="{{ asset('image/imgaccueil3.png')}}" alt="Image accueil" class="img-fluid mx-auto">
+  </div>
+
+  <h1 style="color:#385c7c; text-align: center">Un bon entraînement doit être combiné avec une bonne alimentation.</h1>
+  <h3 style="text-align: center">- Apollift</h3>
 {#
 <hr>
 
