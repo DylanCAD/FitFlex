@@ -3,10 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Form\UserType;
+use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class UserController extends AbstractController
 {
@@ -22,22 +26,32 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/profile/edit", name="user_profile_edit")
-     */
-    public function editProfile(Request $request): Response
+    * @Route("/user/modif/{id}", name="user_modif", methods={"GET","POST"})
+    */
+    public function modifUser($id, Request $request, EntityManagerInterface $manager, UserRepository $userRepository)
     {
-        $user = $this->getUser();
-        // Handle form submission and update user data
-        // Example code to handle form submission and update user data
-        // $userForm = $this->createForm(UserType::class, $user);
-        // $userForm->handleRequest($request);
-        // if ($userForm->isSubmitted() && $userForm->isValid()) {
-        //     $this->getDoctrine()->getManager()->flush();
-        //     return $this->redirectToRoute('user_profile');
-        // }
-        return $this->render('user/edit_profile.html.twig', [
-            'user' => $user,
-            // 'form' => $userForm->createView(),
+        $user = $userRepository->find($id);
+
+        if (!$user) {
+            throw new NotFoundHttpException('User non trouvé');
+        }
+
+        // Créer le formulaire en utilisant le user à modifier
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) 
+        {
+            // Aucun besoin de persister le message, il est déjà enregistré dans la base de données
+            $manager->flush();
+        
+            $this->addFlash("success", "L'utilisateur a bien été modifié");
+            return $this->redirectToRoute('user_profile');
+        }
+
+        return $this->render('user/formModifUser.html.twig', [
+            'formUser' => $form->createView(),
+            'userId' => $id, // Passer l'ID du user au template
         ]);
     }
 }

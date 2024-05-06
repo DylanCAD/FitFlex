@@ -231,3 +231,9 @@ hr {
 .message-envoyer {
     text-align: center;
 }
+
+.photoProfilUser {
+    border-radius: 50%;
+    max-width: 100px;
+    height: auto;
+}

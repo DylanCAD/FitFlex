@@ -18,31 +18,39 @@
         <div class="jumbotron">
             <div class="d-flex align-items-center justify-content-center flex-column">
                 <h1 class="display-4">{{ user.fullName }}</h1>
+                <img class="photoProfilUser" src="{{ asset(app.user.getAvatarUser()) }}" alt="photo de {{ app.user.getFullName() }}">
             </div>
             <hr>
-            <dl>
-                <dt>Email:</dt>
-                <dd>{{ user.email }}</dd>
-                <dt>Nom:</dt>
-                <dd>{{ user.nomUser }}</dd>
-                <dt>Prénom:</dt>
-                <dd>{{ user.prenomUser }}</dd>
-                <dt>Sexe:</dt>
-                <dd>{{ user.sexeUser }}</dd>
-                <dt>Âge:</dt>
-                <dd>{{ user.ageUser }}</dd>
-                <dt>Taille:</dt>
-                <dd>{{ user.tailleUser }}</dd>
-                <dt>Poids:</dt>
-                <dd>{{ user.poidsUser }}</dd>
-                <dt>Niveau:</dt>
-                <dd>{{ user.levelUser }}</dd>
-                <dt>Objectif:</dt>
-                <dd>{{ user.objectifUser }}</dd>
-            </dl>
-            <div class="d-flex align-items-center justify-content-center flex-column">
-                <a href="{{ path('user_profile_edit') }}" class="btn btn-primary btn-lg">Modifier le profil</a>
-            </div>
+            <dl class="user-info">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <dt>Email:</dt>
+                            <dd>{{ user.email }}</dd>
+                            <dt>Niveau:</dt>
+                            <dd>{{ user.levelUser }}</dd>
+                            <dt>Objectif:</dt>
+                            <dd>{{ user.objectifUser }}</dd>
+                        </div>
+                        <div class="col-md-6">
+                            <dt>Sexe:</dt>
+                            <dd>{{ user.sexeUser }}</dd>
+                            <dt>Âge:</dt>
+                            <dd>{{ user.ageUser }}</dd>
+                            <dt>Taille:</dt>
+                            <dd>{{ user.tailleUser }}</dd>
+                            <dt>Poids:</dt>
+                            <dd>{{ user.poidsUser }}</dd>
+                        </div>
+                    </div>
+                </dl>
+                    
+                    <div class="d-flex justify-content-end align-items-center">
+                        <div>
+                            {% if user == app.user %}
+                                <a href="{{ path('user_modif', {'id': user.id }) }}" class="btn btn-primary btn-lg mr-2"><i class="fas fa-pen"></i></a>
+                            {% endif %}
+                        </div>
+                    </div>
         </div>
     </div>
 {% endblock %}

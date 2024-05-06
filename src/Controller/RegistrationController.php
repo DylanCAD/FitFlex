@@ -18,12 +18,8 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/register", name="app_register")
      */
-    public function register(
-        Request $request,
-        UserPasswordEncoderInterface $passwordEncoder,
-        MailerInterface $mailer,
-        UrlGeneratorInterface $urlGenerator
-    ): Response {
+    public function register(Request $request,UserPasswordEncoderInterface $passwordEncoder,MailerInterface $mailer,UrlGeneratorInterface $urlGenerator): Response 
+    {
         $user = new User(); // Création d'une nouvelle instance de l'entité User
         $form = $this->createForm(UserRegistrationFormType::class, $user);
         $form->handleRequest($request);
@@ -64,7 +60,7 @@ class RegistrationController extends AbstractController
     
             // Envoi de l'e-mail de confirmation
             $email = (new Email())
-                ->from('fitflex_team@outlook.com') // Remplacez par votre adresse e-mail d'expéditeur
+                ->from('apollift_team@outlook.com') // Remplacez par votre adresse e-mail d'expéditeur
                 ->to($user->getEmail())
                 ->subject('Confirmation d\'inscription')
                 ->html($this->renderView('emails/registration_confirmation.html.twig', [
