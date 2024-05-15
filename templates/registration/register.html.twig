@@ -22,39 +22,42 @@
                 <br>
                 {{ form_start(registrationForm) }}
 
-            <div class="row">
-                <div class="col-8">
-                    {{ form_row(registrationForm.email) }}
-                    {{ form_row(registrationForm.password.first) }}
-                    {{ form_row(registrationForm.password.second) }}
-                    <div class="row">
-                        <div class="col">{{ form_row(registrationForm.nom_User) }}</div>
-                        <div class="col">{{ form_row(registrationForm.prenom_User) }}</div>
+                <div class="row">
+                    <div class="col-8">
+                        {{ form_row(registrationForm.email) }}
+                        {{ form_row(registrationForm.password.first) }}
+                        {{ form_row(registrationForm.password.second) }}
+                        <div class="row">
+                            <div class="col">{{ form_row(registrationForm.nom_User) }}</div>
+                            <div class="col">{{ form_row(registrationForm.prenom_User) }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col">{{ form_row(registrationForm.sexe_User) }}</div>
+                            <div class="col">{{ form_row(registrationForm.age_User) }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col">{{ form_row(registrationForm.taille_User) }}</div>
+                            <div class="col">{{ form_row(registrationForm.poids_User) }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col">{{ form_row(registrationForm.level_User) }}</div>
+                            <div class="col">{{ form_row(registrationForm.objectif_User) }}</div>
+                        </div>
+                        {{ form_row(registrationForm.agreeTerms) }}
+                    </div> 
+
+                    <div class="col-4">
+                        <div>
+                            <img src="{{ asset("image/imagevierge.png") }}" id="imageAffichee" alt="Card image" class="rounded mx-auto d-block img-thumbnail">
+                        </div>
+                        <div> {# Balise ajoutée #}
+                            {{ form_row(registrationForm.imageFile, {'id':'imageFile'}) }}
+                            <a class="btn btn-primary d-block center" id="chargeImage"><i class="fas fa-upload"></i> Charger la photo de profil</a>    
+                        </div>
+                        {{ form_errors(registrationForm.imageFile) }} {# Pour afficher les erreurs #}
                     </div>
-                    <div class="row">
-                        <div class="col">{{ form_row(registrationForm.sexe_User) }}</div>
-                        <div class="col">{{ form_row(registrationForm.age_User) }}</div>
-                    </div>
-                    <div class="row">
-                        <div class="col">{{ form_row(registrationForm.taille_User) }}</div>
-                        <div class="col">{{ form_row(registrationForm.poids_User) }}</div>
-                    </div>
-                    <div class="row">
-                        <div class="col">{{ form_row(registrationForm.level_User) }}</div>
-                        <div class="col">{{ form_row(registrationForm.objectif_User) }}</div>
-                    </div>
-                    {{ form_row(registrationForm.agreeTerms) }}
-                </div>    
-                <div class="col-4">
-                    <div>
-                        <img src="{{ asset("image/imagevierge.png") }}" id="imageAffichee" alt="Card image" class="rounded mx-auto d-block img-thumbnail">
-                    </div>
-                <div>
-                {{ form_row(registrationForm.imageFile, {'id':'imageFile'}) }}
-                <a class="btn btn-primary d-block center" id="chargeImage"><i class="fas fa-upload"></i> Charger votre photo de profil</a>    
+                    
                 </div>
-                </div>
-            </div>
 
                 <div class="d-flex align-items-center justify-content-center flex-column">
                     <input type="submit" class="btn btn-primary btn-lg btn-block" value="S'inscrire">

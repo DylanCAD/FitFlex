@@ -6,6 +6,7 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\IsTrue;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -75,7 +76,12 @@ class UserRegistrationFormType extends AbstractType
                     ],
                     'row_attr'=>[
                         'class'=>"d-none"
-                    ]
+                    ],
+                    'constraints' => [
+                        new NotBlank([ // Ajoute la contrainte de validation NotBlank
+                            'message' => 'Veuillez charger une photo de profil.',
+                        ]),
+                    ],
                 ])
             ->add('avatar_User', HiddenType::class)
             ->add('age_User', TextType::class, [
