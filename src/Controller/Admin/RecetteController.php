@@ -3,7 +3,9 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Recette;
+use Doctrine\ORM\Query;
 use App\Form\RecetteType;
+use App\Form\FiltreRecetteType;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Entity;
 use App\Repository\RecetteRepository;
@@ -19,11 +21,26 @@ class RecetteController extends AbstractController
     /**
      * @Route("/admin/recettes", name="admin_recettes", methods={"GET"})
      */
-    public function listeRecettes(RecetteRepository $repo)
+    public function listeRecettes(RecetteRepository $repo, Request $request)
     {
-        $recettes = $repo->findAll();
-        return $this->render('admin/recette/listeRecettes.html.twig', [
-            'lesRecettes' => $recettes
+        $nom=null;
+        $formFiltreRecette=$this->createForm(FiltreRecetteType::class);
+        $formFiltreRecette->handleRequest($request);
+        if($formFiltreRecette->isSubmitted() && $formFiltreRecette->isValid()){
+            // on récupère la saisie dans le formulaire du nom
+            $nom=$formFiltreRecette->get('nom')->getData();
+        }
+        $query = $repo->listeRecettesComplete($nom);
+
+        if ($query instanceof Query) {
+            $recettes = $query->getResult();
+        } else {
+            // Gérer le cas où la méthode ne renvoie pas un objet Query
+            // Peut-être renvoyer une liste vide ou une autre valeur par défaut
+            $recettes = [];
+        }        return $this->render('admin/recette/listeRecettes.html.twig', [
+            'lesRecettes' => $recettes,
+            'formFiltreRecette'=>$formFiltreRecette->createView()
         ]);
     }
 

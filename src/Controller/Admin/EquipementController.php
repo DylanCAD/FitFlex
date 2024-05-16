@@ -2,10 +2,12 @@
 
 namespace App\Controller\Admin;
 
+use Doctrine\ORM\Query;
 use App\Entity\Equipement;
 use App\Form\EquipementType;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Entity;
+use App\Form\FiltreEquipementType;
 use App\Repository\EquipementRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,11 +21,26 @@ class EquipementController extends AbstractController
     /**
      * @Route("/admin/equipements", name="admin_equipements", methods={"GET"})
      */
-    public function listeEquipements(EquipementRepository $repo)
+    public function listeEquipements(EquipementRepository $repo, Request $request)
     {
-        $equipements = $repo->findAll();
-        return $this->render('admin/equipement/listeEquipements.html.twig', [
-            'lesEquipements' => $equipements
+        $nom=null;
+        $formFiltreEquipement=$this->createForm(FiltreEquipementType::class);
+        $formFiltreEquipement->handleRequest($request);
+        if($formFiltreEquipement->isSubmitted() && $formFiltreEquipement->isValid()){
+            // on récupère la saisie dans le formulaire du nom
+            $nom=$formFiltreEquipement->get('nom')->getData();
+        }
+        $query = $repo->listeEquipementsComplete($nom);
+
+        if ($query instanceof Query) {
+            $equipements = $query->getResult();
+        } else {
+            // Gérer le cas où la méthode ne renvoie pas un objet Query
+            // Peut-être renvoyer une liste vide ou une autre valeur par défaut
+            $equipements = [];
+        }        return $this->render('admin/equipement/listeEquipements.html.twig', [
+            'lesEquipements' => $equipements,
+            'formFiltreEquipement'=>$formFiltreEquipement->createView()
         ]);
     }
 

@@ -2,9 +2,10 @@
 
 namespace App\Repository;
 
+use Doctrine\ORM\Query;
 use App\Entity\RecetteNegative;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<RecetteNegative>
@@ -39,20 +40,21 @@ class RecetteNegativeRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return RecetteNegative[] Returns an array of RecetteNegative objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('r')
-//            ->andWhere('r.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('r.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return Query Returns an array of Equipement objects
+     */
+    public function listeRecetteNegativesComplete($nom=null): ?Query
+    {
+        $query= $this->createQueryBuilder('rn')
+            ->orderBy('rn.id', 'ASC');
+
+            if($nom != null){
+                $query->andWhere('rn.nomRecetteNegative LIKE :nomcherche')
+                ->setParameter('nomcherche', "%{$nom}%");
+            }
+        ;
+        return $query->getQuery();
+    }
 
 //    public function findOneBySomeField($value): ?RecetteNegative
 //    {

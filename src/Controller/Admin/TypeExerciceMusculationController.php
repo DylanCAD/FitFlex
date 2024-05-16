@@ -2,15 +2,17 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\TypeExerciceMusculation;
-use App\Form\TypeExerciceMusculationType;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Entity;
-use App\Repository\TypeExerciceMusculationRepository;
+use App\Entity\TypeExerciceMusculation;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Form\TypeExerciceMusculationType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Form\FiltreTypeExerciceMusculationType;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\TypeExerciceMusculationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -19,11 +21,26 @@ class TypeExerciceMusculationController extends AbstractController
     /**
      * @Route("/admin/typeExerciceMusculations", name="admin_typeExerciceMusculations", methods={"GET"})
      */
-    public function listeTypeExerciceMusculations(TypeExerciceMusculationRepository $repo)
+    public function listeTypeExerciceMusculations(TypeExerciceMusculationRepository $repo, Request $request)
     {
-        $typeExerciceMusculations = $repo->findAll();
-        return $this->render('admin/typeExerciceMusculation/listeTypeExerciceMusculations.html.twig', [
-            'lesTypeExerciceMusculations' => $typeExerciceMusculations
+        $nom=null;
+        $formFiltreTypeExerciceMusculation=$this->createForm(FiltreTypeExerciceMusculationType::class);
+        $formFiltreTypeExerciceMusculation->handleRequest($request);
+        if($formFiltreTypeExerciceMusculation->isSubmitted() && $formFiltreTypeExerciceMusculation->isValid()){
+            // on récupère la saisie dans le formulaire du nom
+            $nom=$formFiltreTypeExerciceMusculation->get('nom')->getData();
+        }
+        $query = $repo->listeTypeExerciceMusculationsComplete($nom);
+
+        if ($query instanceof Query) {
+            $typeExerciceMusculations = $query->getResult();
+        } else {
+            // Gérer le cas où la méthode ne renvoie pas un objet Query
+            // Peut-être renvoyer une liste vide ou une autre valeur par défaut
+            $typeExerciceMusculations = [];
+        }        return $this->render('admin/typeExerciceMusculation/listeTypeExerciceMusculations.html.twig', [
+            'lesTypeExerciceMusculations' => $typeExerciceMusculations,
+            'formFiltreTypeExerciceMusculation'=>$formFiltreTypeExerciceMusculation->createView()
         ]);
     }
 

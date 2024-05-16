@@ -4,8 +4,25 @@
 
 {% block body %}
     <h1 class="titre pt-2 text-center">Gestion des exercices de musculation</h1>
-    <a href="{{ path('admin_typeExerciceMusculation_ajout') }}" class="btn btn-success" style="color: black">Ajouter un exercice de musculation</a>
+    <br>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                {{ form_start(formFiltreTypeExerciceMusculation, {'attr': {'class': 'form-inline', 'style': 'width: 100%;'}}) }}
+                    <div class="input-group">
+                        {{ form_row(formFiltreTypeExerciceMusculation.nom, {'attr': {'class': 'form-control mr-sm-2', 'style': 'width: 400px;'}}) }}
+                        <div class="input-group-append">
+                            <button type="submit" class="btn-warning mt-md-0" style="height: 38px;">Rechercher</button>
+                        </div>
+                    </div>
+                {{ form_end(formFiltreTypeExerciceMusculation) }}
+            </div>
+        </div>
+    </div>
     <hr>
+    
+    <a href="{{ path('admin_typeExerciceMusculation_ajout') }}" class="btn btn-success" style="color: black">Ajouter un exercice de musculation</a>
+    <br><br>
     <div class="table-responsive">
         <table class="table table-hover">
             <thead>

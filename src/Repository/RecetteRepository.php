@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Recette;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Recette>
@@ -39,20 +40,21 @@ class RecetteRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Recette[] Returns an array of Recette objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('r')
-//            ->andWhere('r.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('r.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return Query Returns an array of Equipement objects
+     */
+    public function listeRecettesComplete($nom=null): ?Query
+    {
+        $query= $this->createQueryBuilder('r')
+            ->orderBy('r.id', 'ASC');
+
+            if($nom != null){
+                $query->andWhere('r.nomRecette LIKE :nomcherche')
+                ->setParameter('nomcherche', "%{$nom}%");
+            }
+        ;
+        return $query->getQuery();
+    }
 
 //    public function findOneBySomeField($value): ?Recette
 //    {

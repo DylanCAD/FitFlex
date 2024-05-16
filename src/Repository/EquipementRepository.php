@@ -2,9 +2,10 @@
 
 namespace App\Repository;
 
+use Doctrine\ORM\Query;
 use App\Entity\Equipement;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Equipement>
@@ -39,20 +40,21 @@ class EquipementRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Equipement[] Returns an array of Equipement objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('e')
-//            ->andWhere('e.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('e.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return Query Returns an array of Equipement objects
+     */
+    public function listeEquipementsComplete($nom=null): ?Query
+    {
+        $query= $this->createQueryBuilder('e')
+            ->orderBy('e.id', 'ASC');
+
+            if($nom != null){
+                $query->andWhere('e.nomEquipement LIKE :nomcherche')
+                ->setParameter('nomcherche', "%{$nom}%");
+            }
+        ;
+        return $query->getQuery();
+    }
 
 //    public function findOneBySomeField($value): ?Equipement
 //    {

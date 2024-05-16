@@ -2,15 +2,17 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\ExerciceMusculation;
-use App\Form\ExerciceMusculationType;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Entity;
-use App\Repository\ExerciceMusculationRepository;
+use App\Entity\ExerciceMusculation;
+use App\Form\ExerciceMusculationType;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Form\FiltreExerciceMusculationType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\ExerciceMusculationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -19,11 +21,26 @@ class ExerciceMusculationController extends AbstractController
     /**
      * @Route("/admin/exerciceMusculations", name="admin_exerciceMusculations", methods={"GET"})
      */
-    public function listeExerciceMusculations(ExerciceMusculationRepository $repo)
+    public function listeExerciceMusculations(ExerciceMusculationRepository $repo, Request $request)
     {
-        $exerciceMusculations = $repo->findAll();
-        return $this->render('admin/exerciceMusculation/listeExerciceMusculations.html.twig', [
-            'lesExerciceMusculations' => $exerciceMusculations
+        $nom=null;
+        $formFiltreExerciceMusculation=$this->createForm(FiltreExerciceMusculationType::class);
+        $formFiltreExerciceMusculation->handleRequest($request);
+        if($formFiltreExerciceMusculation->isSubmitted() && $formFiltreExerciceMusculation->isValid()){
+            // on récupère la saisie dans le formulaire du nom
+            $nom=$formFiltreExerciceMusculation->get('nom')->getData();
+        }
+        $query = $repo->listeExerciceMusculationsComplete($nom);
+
+        if ($query instanceof Query) {
+            $exerciceMusculations = $query->getResult();
+        } else {
+            // Gérer le cas où la méthode ne renvoie pas un objet Query
+            // Peut-être renvoyer une liste vide ou une autre valeur par défaut
+            $exerciceMusculations = [];
+        }        return $this->render('admin/exerciceMusculation/listeExerciceMusculations.html.twig', [
+            'lesExerciceMusculations' => $exerciceMusculations,
+            'formFiltreExerciceMusculation'=>$formFiltreExerciceMusculation->createView()
         ]);
     }
 

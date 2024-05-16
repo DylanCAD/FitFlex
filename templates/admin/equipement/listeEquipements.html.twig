@@ -4,8 +4,25 @@
 
 {% block body %}
     <h1 class="titre pt-2 text-center">Gestion des équipements de fitness</h1>
-    <a href="{{ path('admin_equipement_ajout') }}" class="btn btn-success" style="color: black">Ajouter un équipement</a>
+    <br>  
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                {{ form_start(formFiltreEquipement, {'attr': {'class': 'form-inline', 'style': 'width: 100%;'}}) }}
+                    <div class="input-group">
+                        {{ form_row(formFiltreEquipement.nom, {'attr': {'class': 'form-control mr-sm-2', 'style': 'width: 400px;'}}) }}
+                        <div class="input-group-append">
+                            <button type="submit" class="btn-warning mt-md-0" style="height: 38px;">Rechercher</button>
+                        </div>
+                    </div>
+                {{ form_end(formFiltreEquipement) }}
+            </div>
+        </div>
+    </div>
     <hr>
+
+    <a href="{{ path('admin_equipement_ajout') }}" class="btn btn-success" style="color: black">Ajouter un équipement</a>
+    <br><br>
     <div class="table-responsive">
         <table class="table table-hover">
             <thead>
@@ -26,9 +43,9 @@
                         </td>
                         <td class="col-2" style="color: black">{{ leEquipement.nomEquipement }}</td>
                         <td class="col-7">
-                            <p class="d-flex flex-row" style="color: black">
+                            {# <p class="d-flex flex-row" style="color: black">
                                 <span class="align-self-center badge badge-success" style="color: black">{{ leEquipement.lienEquipement }}</span>
-                            </p>
+                            </p> #}
                             <p style="color: black">
                                 {{ leEquipement.descriptionEquipement }}
                             </p>

@@ -2,12 +2,14 @@
 
 namespace App\Controller\Admin;
 
+use Doctrine\ORM\Query;
 use App\Entity\RecetteNegative;
-use App\Form\RecetteNegativeType;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Entity;
-use App\Repository\RecetteNegativeRepository;
+use App\Form\RecetteNegativeType;
+use App\Form\FiltreRecetteNegativeType;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\RecetteNegativeRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,11 +21,26 @@ class RecetteNegativeController extends AbstractController
     /**
      * @Route("/admin/recetteNegatives", name="admin_recetteNegatives", methods={"GET"})
      */
-    public function listeRecetteNegatives(RecetteNegativeRepository $repo)
+    public function listeRecetteNegatives(RecetteNegativeRepository $repo, Request $request)
     {
-        $recetteNegatives = $repo->findAll();
-        return $this->render('admin/recetteNegative/listeRecetteNegatives.html.twig', [
-            'lesRecetteNegatives' => $recetteNegatives
+        $nom=null;
+        $formFiltreRecetteNegative=$this->createForm(FiltreRecetteNegativeType::class);
+        $formFiltreRecetteNegative->handleRequest($request);
+        if($formFiltreRecetteNegative->isSubmitted() && $formFiltreRecetteNegative->isValid()){
+            // on récupère la saisie dans le formulaire du nom
+            $nom=$formFiltreRecetteNegative->get('nom')->getData();
+        }
+        $query = $repo->listeRecetteNegativesComplete($nom);
+
+        if ($query instanceof Query) {
+            $recetteNegatives = $query->getResult();
+        } else {
+            // Gérer le cas où la méthode ne renvoie pas un objet Query
+            // Peut-être renvoyer une liste vide ou une autre valeur par défaut
+            $recetteNegatives = [];
+        }        return $this->render('admin/recetteNegative/listeRecetteNegatives.html.twig', [
+            'lesRecetteNegatives' => $recetteNegatives,
+            'formFiltreRecetteNegative'=>$formFiltreRecetteNegative->createView()
         ]);
     }
 

@@ -2,9 +2,10 @@
 
 namespace App\Repository;
 
+use Doctrine\ORM\Query;
 use App\Entity\TypeExerciceMusculation;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<TypeExerciceMusculation>
@@ -39,20 +40,21 @@ class TypeExerciceMusculationRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return TypeExerciceMusculation[] Returns an array of TypeExerciceMusculation objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('t')
-//            ->andWhere('t.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('t.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return Query Returns an array of Equipement objects
+     */
+    public function listeTypeExerciceMusculationsComplete($nom=null): ?Query
+    {
+        $query= $this->createQueryBuilder('tex')
+            ->orderBy('tex.id', 'ASC');
+
+            if($nom != null){
+                $query->andWhere('tex.nomTypeExerciceMusculation LIKE :nomcherche')
+                ->setParameter('nomcherche', "%{$nom}%");
+            }
+        ;
+        return $query->getQuery();
+    }
 
 //    public function findOneBySomeField($value): ?TypeExerciceMusculation
 //    {
