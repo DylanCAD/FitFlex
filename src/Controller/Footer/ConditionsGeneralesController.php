@@ -10,6 +10,6 @@ class ConditionsGeneralesController extends AbstractController
 {
     public function conditionsGenerales(): Response
     {
-        return $this->render('footer/conditions_generales.html.twig');
+        return $this->render('footer/Conditions_generales.html.twig');
     }
 }
